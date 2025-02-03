@@ -1,7 +1,7 @@
 apiVersion: vcd.upbound.io/v1alpha1
 kind: Org
 metadata:
-  name: crossplane-org
+  name: crossplane-orgs
 spec:
   forProvider:
     accountLockout:

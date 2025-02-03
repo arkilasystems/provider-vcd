@@ -1,7 +1,7 @@
 apiVersion: vcd.upbound.io/v1alpha1
 kind: Org
 metadata:
-  name: crossplane
+  name: crossplanes
 spec:
   forProvider:
     accountLockout:
@@ -13,7 +13,7 @@ spec:
     description: Test building an org form crossplane
     fullName: Crossplane organization
     isEnabled: true
-    name: crossplane
+    name: crossplanes
     vappLease:
     - deleteOnStorageLeaseExpiration: false
       maximumRuntimeLeaseInSec: 3600

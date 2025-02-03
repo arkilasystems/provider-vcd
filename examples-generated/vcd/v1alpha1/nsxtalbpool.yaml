@@ -1,0 +1,15 @@
+apiVersion: vcd.upbound.io/v1alpha1
+kind: NsxtAlbPool
+metadata:
+  annotations:
+    meta.upbound.io/example-id: vcd/v1alpha1/nsxtalbpool
+  labels:
+    testing.upbound.io/example-name: first-pool
+  name: first-pool
+spec:
+  forProvider:
+    edgeGatewayId: ${vcd_nsxt_alb_settings.test.edge_gateway_id}
+    member:
+    - ipAddress: 192.168.1.1
+    name: tiny-pool
+    org: sample

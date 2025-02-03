@@ -1,0 +1,14 @@
+apiVersion: vcd.upbound.io/v1alpha1
+kind: RdeInterface
+metadata:
+  annotations:
+    meta.upbound.io/example-id: vcd/v1alpha1/rdeinterface
+  labels:
+    testing.upbound.io/example-name: my_interface1
+  name: my-interface1
+spec:
+  forProvider:
+    name: BigCorp Interface
+    nss: tech
+    vendor: bigcorp
+    version: 1.2.3

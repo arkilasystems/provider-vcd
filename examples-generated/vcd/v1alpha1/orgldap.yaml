@@ -1,0 +1,40 @@
+apiVersion: vcd.upbound.io/v1alpha1
+kind: OrgLdap
+metadata:
+  annotations:
+    meta.upbound.io/example-id: vcd/v1alpha1/orgldap
+  labels:
+    testing.upbound.io/example-name: my-org-ldap
+  name: my-org-ldap
+spec:
+  forProvider:
+    customSettings:
+    - authenticationMethod: SIMPLE
+      baseDistinguishedName: dc=planetexpress,dc=com
+      connectorType: OPEN_LDAP
+      groupAttributes:
+      - groupMembershipIdentifier: dn
+        membership: member
+        name: cn
+        objectClass: group
+        uniqueIdentifier: cn
+      isSsl: false
+      passwordSecretRef:
+        key: example-key
+        name: example-secret
+        namespace: upbound-system
+      port: 389
+      server: 192.168.1.172
+      userAttributes:
+      - displayName: cn
+        email: mail
+        givenName: givenName
+        groupMembershipIdentifier: dn
+        objectClass: inetOrgPerson
+        surname: sn
+        telephone: telephoneNumber
+        uniqueIdentifier: uid
+        username: uid
+      username: cn=admin,dc=planetexpress,dc=com
+    ldapMode: CUSTOM
+    orgId: ${data.vcd_org.my-org.id}

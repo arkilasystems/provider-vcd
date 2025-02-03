@@ -1,0 +1,50 @@
+apiVersion: vcd.upbound.io/v1alpha1
+kind: IpSpaceUplink
+metadata:
+  annotations:
+    meta.upbound.io/example-id: vcd/v1alpha1/ipspaceuplink
+  labels:
+    testing.upbound.io/example-name: u1
+  name: u1
+spec:
+  forProvider:
+    description: uplink number one
+    externalNetworkId: ${vcd_external_network_v2.provider-gateway.id}
+    ipSpaceId: ${vcd_ip_space.space1.id}
+    name: uplink
+
+---
+
+apiVersion: vcd.upbound.io/v1alpha1
+kind: ExternalNetworkV2
+metadata:
+  annotations:
+    meta.upbound.io/example-id: vcd/v1alpha1/ipspaceuplink
+  labels:
+    testing.upbound.io/example-name: provider-gateway
+  name: provider-gateway
+spec:
+  forProvider:
+    name: ProviderGateway1
+    nsxtNetwork:
+    - nsxtManagerId: ${data.vcd_nsxt_manager.main.id}
+      nsxtTier0RouterId: ${data.vcd_nsxt_tier0_router.router.id}
+    useIpSpaces: true
+
+---
+
+apiVersion: vcd.upbound.io/v1alpha1
+kind: IpSpace
+metadata:
+  annotations:
+    meta.upbound.io/example-id: vcd/v1alpha1/ipspaceuplink
+  labels:
+    testing.upbound.io/example-name: space1
+  name: space1
+spec:
+  forProvider:
+    internalScope:
+    - 192.168.1.0/24
+    name: ip-space-1
+    routeAdvertisementEnabled: false
+    type: PUBLIC

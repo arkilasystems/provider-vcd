@@ -1,0 +1,17 @@
+apiVersion: vcd.upbound.io/v1alpha1
+kind: RdeType
+metadata:
+  annotations:
+    meta.upbound.io/example-id: vcd/v1alpha1/rdetype
+  labels:
+    testing.upbound.io/example-name: my_rde_type
+  name: my-rde-type
+spec:
+  forProvider:
+    interfaceIds:
+    - ${data.vcd_rde_interface.my_interface.id}
+    name: My VMware RDE Type
+    nss: vcd
+    schema: ${file("${path.module}/schemas/my-type-schema.json")}
+    vendor: vmware
+    version: 4.5.6

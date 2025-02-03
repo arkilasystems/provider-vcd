@@ -1,0 +1,16 @@
+apiVersion: vcd.upbound.io/v1alpha1
+kind: NsxtSecurityGroup
+metadata:
+  annotations:
+    meta.upbound.io/example-id: vcd/v1alpha1/nsxtsecuritygroup
+  labels:
+    testing.upbound.io/example-name: frontend-servers
+  name: frontend-servers
+spec:
+  forProvider:
+    description: Security Group for a network connecting the frontend servers
+    edgeGatewayId: ${data.vcd_nsxt_edgegateway.main.id}
+    memberOrgNetworkIds:
+    - ${vcd_network_routed_v2.frontend.id}
+    name: frontend-servers
+    org: my-org

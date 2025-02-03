@@ -1,0 +1,33 @@
+apiVersion: vcd.upbound.io/v1alpha1
+kind: IpSpaceIpAllocation
+metadata:
+  annotations:
+    meta.upbound.io/example-id: vcd/v1alpha1/ipspaceipallocation
+  labels:
+    testing.upbound.io/example-name: public-floating-ip
+  name: public-floating-ip
+spec:
+  forProvider:
+    ipSpaceId: ${vcd_ip_space.space1.id}
+    orgId: ${data.vcd_org.org1.id}
+    type: FLOATING_IP
+
+---
+
+apiVersion: vcd.upbound.io/v1alpha1
+kind: NsxtNatRule
+metadata:
+  annotations:
+    meta.upbound.io/example-id: vcd/v1alpha1/ipspaceipallocation
+  labels:
+    testing.upbound.io/example-name: dnat-floating-ip
+  name: dnat-floating-ip
+spec:
+  forProvider:
+    edgeGatewayId: ${vcd_nsxt_edgegateway.ip-space.id}
+    externalAddress: ${vcd_ip_space_ip_allocation.public-floating-ip.ip_address}
+    internalAddress: 77.77.77.1
+    logging: true
+    name: IP Space integration
+    org: v42
+    ruleType: DNAT

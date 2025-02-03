@@ -1,0 +1,17 @@
+apiVersion: vcd.upbound.io/v1alpha1
+kind: ExternalNetworkV2
+metadata:
+  annotations:
+    meta.upbound.io/example-id: vcd/v1alpha1/externalnetworkv2
+  labels:
+    testing.upbound.io/example-name: ext-net-nsxt-t0
+  name: ext-net-nsxt-t0
+spec:
+  forProvider:
+    dedicatedOrgId: ${data.vcd_org.org1.id}
+    description: IP Space backed
+    name: nsxt-external-network
+    nsxtNetwork:
+    - nsxtManagerId: ${data.vcd_nsxt_manager.main.id}
+      nsxtTier0RouterId: ${data.vcd_nsxt_tier0_router.router.id}
+    useIpSpaces: true

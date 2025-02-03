@@ -1,0 +1,964 @@
+---
+apiVersion: apiextensions.k8s.io/v1
+kind: CustomResourceDefinition
+metadata:
+  annotations:
+    controller-gen.kubebuilder.io/version: v0.14.0
+  name: nsxtipsecvpntunnels.vcd.upbound.io
+spec:
+  group: vcd.upbound.io
+  names:
+    categories:
+    - crossplane
+    - managed
+    - vcd
+    kind: NsxtIpsecVpnTunnel
+    listKind: NsxtIpsecVpnTunnelList
+    plural: nsxtipsecvpntunnels
+    singular: nsxtipsecvpntunnel
+  scope: Cluster
+  versions:
+  - additionalPrinterColumns:
+    - jsonPath: .status.conditions[?(@.type=='Synced')].status
+      name: SYNCED
+      type: string
+    - jsonPath: .status.conditions[?(@.type=='Ready')].status
+      name: READY
+      type: string
+    - jsonPath: .metadata.annotations.crossplane\.io/external-name
+      name: EXTERNAL-NAME
+      type: string
+    - jsonPath: .metadata.creationTimestamp
+      name: AGE
+      type: date
+    name: v1alpha1
+    schema:
+      openAPIV3Schema:
+        description: NsxtIpsecVpnTunnel is the Schema for the NsxtIpsecVpnTunnels
+          API. Provides a resource to manage NSX-T IPsec VPN Tunnel. You can configure
+          site-to-site connectivity between an NSX-T Data Center Edge Gateway and
+          remote sites. The remote sites must use NSX-T Data Center, have third-party
+          hardware routers, or VPN gateways that support IPSec.
+        properties:
+          apiVersion:
+            description: |-
+              APIVersion defines the versioned schema of this representation of an object.
+              Servers should convert recognized schemas to the latest internal value, and
+              may reject unrecognized values.
+              More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+            type: string
+          kind:
+            description: |-
+              Kind is a string value representing the REST resource this object represents.
+              Servers may infer this from the endpoint the client submits requests to.
+              Cannot be updated.
+              In CamelCase.
+              More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+            type: string
+          metadata:
+            type: object
+          spec:
+            description: NsxtIpsecVpnTunnelSpec defines the desired state of NsxtIpsecVpnTunnel
+            properties:
+              deletionPolicy:
+                default: Delete
+                description: |-
+                  DeletionPolicy specifies what will happen to the underlying external
+                  when this managed resource is deleted - either "Delete" or "Orphan" the
+                  external resource.
+                  This field is planned to be deprecated in favor of the ManagementPolicies
+                  field in a future release. Currently, both could be set independently and
+                  non-default values would be honored if the feature flag is enabled.
+                  See the design doc for more information: https://github.com/crossplane/crossplane/blob/499895a25d1a1a0ba1604944ef98ac7a1a71f197/design/design-doc-observe-only-resources.md?plain=1#L223
+                enum:
+                - Orphan
+                - Delete
+                type: string
+              forProvider:
+                properties:
+                  authenticationMode:
+                    description: |-
+                      PSK (pre-shared key) or CERTIFICATE (default -
+                      PSK)
+                      One of 'PSK' (default), 'CERTIFICATE'
+                    type: string
+                  caCertificateId:
+                    description: |-
+                      CA Certificate ID (can be handled by
+                      vcd_library_certificate resource or datasource) Note authentication_mode must be set to
+                      CERTIFICATE
+                      Optional CA certificate ID to use for authentication
+                    type: string
+                  certificateId:
+                    description: |-
+                      Certificate ID (can be handled by vcd_library_certificate
+                      resource or datasource). Note authentication_mode must be set to CERTIFICATE
+                      Optional certificate ID to use for authentication
+                    type: string
+                  description:
+                    description: |-
+                      An optional description of the NSX-T IPsec VPN Tunnel
+                      Description IP Sec VPN Tunnel
+                    type: string
+                  edgeGatewayId:
+                    description: |-
+                      The ID of the Edge Gateway (NSX-T only). Can be looked up using
+                      vcd_nsxt_edgegateway data source
+                      Edge gateway name in which IP Sec VPN configuration is located
+                    type: string
+                  enabled:
+                    description: |-
+                      Enables or disables IPsec VPN Tunnel (default true)
+                      Enables or disables this configuration (default true)
+                    type: boolean
+                  localIpAddress:
+                    description: |-
+                      IPv4 Address for the endpoint. This has to be a suballocated IP on the Edge Gateway.
+                      IPv4 Address for the endpoint. This has to be a sub-allocated IP on the Edge Gateway.
+                    type: string
+                  localNetworks:
+                    description: |-
+                      A set of local networks in CIDR format. At least one value required
+                      Set of local networks in CIDR format. At least one value is required
+                    items:
+                      type: string
+                    type: array
+                    x-kubernetes-list-type: set
+                  logging:
+                    description: |-
+                      Sets whether logging for the tunnel is enabled or not. (default - false)
+                      Sets whether logging for the tunnel is enabled or not. (default - false)
+                    type: boolean
+                  name:
+                    description: |-
+                      A name for NSX-T IPsec VPN Tunnel
+                      Name of IP Sec VPN Tunnel
+                    type: string
+                  org:
+                    description: |-
+                      The name of organization to use, optional if defined at provider level. Useful
+                      when connected as sysadmin working across different organisations.
+                      The name of organization to use, optional if defined at provider level. Useful when connected as sysadmin working across different organizations
+                    type: string
+                  preSharedKeySecretRef:
+                    description: |-
+                      Pre-shared key for negotiation. Note the pre-shared key must be
+                      the same on the other end of the IPSec VPN tunnel and authentication_mode must be PSK
+                      Pre-Shared Key (PSK)
+                    properties:
+                      key:
+                        description: The key to select.
+                        type: string
+                      name:
+                        description: Name of the secret.
+                        type: string
+                      namespace:
+                        description: Namespace of the secret.
+                        type: string
+                    required:
+                    - key
+                    - name
+                    - namespace
+                    type: object
+                  remoteId:
+                    description: |-
+                      Remote ID uniquely identifies the peer site. If the remote ID is
+                      not set, it will default to the remote IP address
+                      Custom remote ID of the peer site. 'remote_ip_address' is used by default
+                    type: string
+                  remoteIpAddress:
+                    description: |-
+                      Public IPv4 Address of the remote device terminating the VPN connection
+                      Public IPv4 Address of the remote device terminating the VPN connection
+                    type: string
+                  remoteNetworks:
+                    description: |-
+                      Set of remote networks in CIDR format. Leaving it empty is interpreted as 0.0.0.0/0
+                      Set of remote networks in CIDR format. Leaving it empty is interpreted as 0.0.0.0/0
+                    items:
+                      type: string
+                    type: array
+                    x-kubernetes-list-type: set
+                  securityProfileCustomization:
+                    description: |-
+                      a block allowing to
+                      customize default security profile parameters
+                      Security profile customization
+                    items:
+                      properties:
+                        dpdProbeInternal:
+                          description: |-
+                            Value in seconds of dead probe detection interval. Minimum is 3 seconds and the
+                            maximum is 60 seconds
+                            Value in seconds of dead probe detection interval. Minimum is 3 seconds and the maximum is 60 seconds
+                          type: number
+                        ikeDhGroups:
+                          description: |-
+                            Diffie-Hellman groups to be used if Perfect Forward Secrecy is enabled. One of
+                            GROUP2, GROUP5, GROUP14, GROUP15, GROUP16, GROUP19, GROUP20, GROUP21
+                            Diffie-Hellman groups to be used if Perfect Forward Secrecy is enabled. One of GROUP2, GROUP5, GROUP14, GROUP15, GROUP16, GROUP19, GROUP20, GROUP21
+                          items:
+                            type: string
+                          type: array
+                          x-kubernetes-list-type: set
+                        ikeDigestAlgorithms:
+                          description: |-
+                            Secure hashing algorithms to use during the IKE negotiation. One of SHA1,
+                            SHA2_256, SHA2_384, SHA2_512
+                            Secure hashing algorithms to use during the IKE negotiation. One of SHA1, SHA2_256, SHA2_384, SHA2_512
+                          items:
+                            type: string
+                          type: array
+                          x-kubernetes-list-type: set
+                        ikeEncryptionAlgorithms:
+                          description: |-
+                            Encryption algorithms One of AES_128, AES_256, AES_GCM_128, AES_GCM_192,
+                            AES_GCM_256
+                            Encryption algorithms. One of SHA1, SHA2_256, SHA2_384, SHA2_512
+                          items:
+                            type: string
+                          type: array
+                          x-kubernetes-list-type: set
+                        ikeSaLifetime:
+                          description: |-
+                            Security association lifetime in seconds. It is number of seconds before the IPsec
+                            tunnel needs to reestablish
+                            Security Association life time (in seconds). It is number of seconds before the IPsec tunnel needs to reestablish
+                          type: number
+                        ikeVersion:
+                          description: |-
+                            One of IKE_V1, IKE_V2, IKE_FLEX
+                            IKE version one of IKE_V1, IKE_V2, IKE_FLEX
+                          type: string
+                        tunnelDfPolicy:
+                          description: |-
+                            Policy for handling defragmentation bit. One of COPY, CLEAR
+                            Policy for handling defragmentation bit. One of COPY, CLEAR
+                          type: string
+                        tunnelDhGroups:
+                          description: |-
+                            Diffie-Hellman groups to be used is PFS is enabled.
+                            One of GROUP2, GROUP5, GROUP14, GROUP15, GROUP16, GROUP19, GROUP20, GROUP21
+                            Diffie-Hellman groups to be used is PFS is enabled. One of GROUP2, GROUP5, GROUP14, GROUP15, GROUP16, GROUP19, GROUP20, GROUP21
+                          items:
+                            type: string
+                          type: array
+                          x-kubernetes-list-type: set
+                        tunnelDigestAlgorithms:
+                          description: |-
+                            Digest algorithms to be used for message digest.
+                            One of SHA1, SHA2_256, SHA2_384, SHA2_512
+                            Digest algorithms to be used for message digest. One of SHA1, SHA2_256, SHA2_384, SHA2_512
+                          items:
+                            type: string
+                          type: array
+                          x-kubernetes-list-type: set
+                        tunnelEncryptionAlgorithms:
+                          description: |-
+                            Encryption algorithms to use in IPSec tunnel establishment.
+                            One of AES_128, AES_256, AES_GCM_128, AES_GCM_192, AES_GCM_256, NO_ENCRYPTION_AUTH_AES_GMAC_128,
+                            NO_ENCRYPTION_AUTH_AES_GMAC_192, NO_ENCRYPTION_AUTH_AES_GMAC_256, NO_ENCRYPTION
+                            Encryption algorithms to use in IPSec tunnel establishment. One of AES_128, AES_256, AES_GCM_128, AES_GCM_192, AES_GCM_256, NO_ENCRYPTION_AUTH_AES_GMAC_128, NO_ENCRYPTION_AUTH_AES_GMAC_192, NO_ENCRYPTION_AUTH_AES_GMAC_256, NO_ENCRYPTION
+                          items:
+                            type: string
+                          type: array
+                          x-kubernetes-list-type: set
+                        tunnelPfsEnabled:
+                          description: |-
+                            PFS (Perfect Forward Secrecy) enabled or disabled.
+                            Perfect Forward Secrecy Enabled or Disabled. Default (enabled)
+                          type: boolean
+                        tunnelSaLifetime:
+                          description: |-
+                            Security Association life time in seconds
+                            Security Association life time (in seconds)
+                          type: number
+                      type: object
+                    type: array
+                  vdc:
+                    description: The name of VDC to use, optional if defined at provider
+                      level
+                    type: string
+                type: object
+              initProvider:
+                description: |-
+                  THIS IS A BETA FIELD. It will be honored
+                  unless the Management Policies feature flag is disabled.
+                  InitProvider holds the same fields as ForProvider, with the exception
+                  of Identifier and other resource reference fields. The fields that are
+                  in InitProvider are merged into ForProvider when the resource is created.
+                  The same fields are also added to the terraform ignore_changes hook, to
+                  avoid updating them after creation. This is useful for fields that are
+                  required on creation, but we do not desire to update them after creation,
+                  for example because of an external controller is managing them, like an
+                  autoscaler.
+                properties:
+                  authenticationMode:
+                    description: |-
+                      PSK (pre-shared key) or CERTIFICATE (default -
+                      PSK)
+                      One of 'PSK' (default), 'CERTIFICATE'
+                    type: string
+                  caCertificateId:
+                    description: |-
+                      CA Certificate ID (can be handled by
+                      vcd_library_certificate resource or datasource) Note authentication_mode must be set to
+                      CERTIFICATE
+                      Optional CA certificate ID to use for authentication
+                    type: string
+                  certificateId:
+                    description: |-
+                      Certificate ID (can be handled by vcd_library_certificate
+                      resource or datasource). Note authentication_mode must be set to CERTIFICATE
+                      Optional certificate ID to use for authentication
+                    type: string
+                  description:
+                    description: |-
+                      An optional description of the NSX-T IPsec VPN Tunnel
+                      Description IP Sec VPN Tunnel
+                    type: string
+                  edgeGatewayId:
+                    description: |-
+                      The ID of the Edge Gateway (NSX-T only). Can be looked up using
+                      vcd_nsxt_edgegateway data source
+                      Edge gateway name in which IP Sec VPN configuration is located
+                    type: string
+                  enabled:
+                    description: |-
+                      Enables or disables IPsec VPN Tunnel (default true)
+                      Enables or disables this configuration (default true)
+                    type: boolean
+                  localIpAddress:
+                    description: |-
+                      IPv4 Address for the endpoint. This has to be a suballocated IP on the Edge Gateway.
+                      IPv4 Address for the endpoint. This has to be a sub-allocated IP on the Edge Gateway.
+                    type: string
+                  localNetworks:
+                    description: |-
+                      A set of local networks in CIDR format. At least one value required
+                      Set of local networks in CIDR format. At least one value is required
+                    items:
+                      type: string
+                    type: array
+                    x-kubernetes-list-type: set
+                  logging:
+                    description: |-
+                      Sets whether logging for the tunnel is enabled or not. (default - false)
+                      Sets whether logging for the tunnel is enabled or not. (default - false)
+                    type: boolean
+                  name:
+                    description: |-
+                      A name for NSX-T IPsec VPN Tunnel
+                      Name of IP Sec VPN Tunnel
+                    type: string
+                  org:
+                    description: |-
+                      The name of organization to use, optional if defined at provider level. Useful
+                      when connected as sysadmin working across different organisations.
+                      The name of organization to use, optional if defined at provider level. Useful when connected as sysadmin working across different organizations
+                    type: string
+                  preSharedKeySecretRef:
+                    description: |-
+                      Pre-shared key for negotiation. Note the pre-shared key must be
+                      the same on the other end of the IPSec VPN tunnel and authentication_mode must be PSK
+                      Pre-Shared Key (PSK)
+                    properties:
+                      key:
+                        description: The key to select.
+                        type: string
+                      name:
+                        description: Name of the secret.
+                        type: string
+                      namespace:
+                        description: Namespace of the secret.
+                        type: string
+                    required:
+                    - key
+                    - name
+                    - namespace
+                    type: object
+                  remoteId:
+                    description: |-
+                      Remote ID uniquely identifies the peer site. If the remote ID is
+                      not set, it will default to the remote IP address
+                      Custom remote ID of the peer site. 'remote_ip_address' is used by default
+                    type: string
+                  remoteIpAddress:
+                    description: |-
+                      Public IPv4 Address of the remote device terminating the VPN connection
+                      Public IPv4 Address of the remote device terminating the VPN connection
+                    type: string
+                  remoteNetworks:
+                    description: |-
+                      Set of remote networks in CIDR format. Leaving it empty is interpreted as 0.0.0.0/0
+                      Set of remote networks in CIDR format. Leaving it empty is interpreted as 0.0.0.0/0
+                    items:
+                      type: string
+                    type: array
+                    x-kubernetes-list-type: set
+                  securityProfileCustomization:
+                    description: |-
+                      a block allowing to
+                      customize default security profile parameters
+                      Security profile customization
+                    items:
+                      properties:
+                        dpdProbeInternal:
+                          description: |-
+                            Value in seconds of dead probe detection interval. Minimum is 3 seconds and the
+                            maximum is 60 seconds
+                            Value in seconds of dead probe detection interval. Minimum is 3 seconds and the maximum is 60 seconds
+                          type: number
+                        ikeDhGroups:
+                          description: |-
+                            Diffie-Hellman groups to be used if Perfect Forward Secrecy is enabled. One of
+                            GROUP2, GROUP5, GROUP14, GROUP15, GROUP16, GROUP19, GROUP20, GROUP21
+                            Diffie-Hellman groups to be used if Perfect Forward Secrecy is enabled. One of GROUP2, GROUP5, GROUP14, GROUP15, GROUP16, GROUP19, GROUP20, GROUP21
+                          items:
+                            type: string
+                          type: array
+                          x-kubernetes-list-type: set
+                        ikeDigestAlgorithms:
+                          description: |-
+                            Secure hashing algorithms to use during the IKE negotiation. One of SHA1,
+                            SHA2_256, SHA2_384, SHA2_512
+                            Secure hashing algorithms to use during the IKE negotiation. One of SHA1, SHA2_256, SHA2_384, SHA2_512
+                          items:
+                            type: string
+                          type: array
+                          x-kubernetes-list-type: set
+                        ikeEncryptionAlgorithms:
+                          description: |-
+                            Encryption algorithms One of AES_128, AES_256, AES_GCM_128, AES_GCM_192,
+                            AES_GCM_256
+                            Encryption algorithms. One of SHA1, SHA2_256, SHA2_384, SHA2_512
+                          items:
+                            type: string
+                          type: array
+                          x-kubernetes-list-type: set
+                        ikeSaLifetime:
+                          description: |-
+                            Security association lifetime in seconds. It is number of seconds before the IPsec
+                            tunnel needs to reestablish
+                            Security Association life time (in seconds). It is number of seconds before the IPsec tunnel needs to reestablish
+                          type: number
+                        ikeVersion:
+                          description: |-
+                            One of IKE_V1, IKE_V2, IKE_FLEX
+                            IKE version one of IKE_V1, IKE_V2, IKE_FLEX
+                          type: string
+                        tunnelDfPolicy:
+                          description: |-
+                            Policy for handling defragmentation bit. One of COPY, CLEAR
+                            Policy for handling defragmentation bit. One of COPY, CLEAR
+                          type: string
+                        tunnelDhGroups:
+                          description: |-
+                            Diffie-Hellman groups to be used is PFS is enabled.
+                            One of GROUP2, GROUP5, GROUP14, GROUP15, GROUP16, GROUP19, GROUP20, GROUP21
+                            Diffie-Hellman groups to be used is PFS is enabled. One of GROUP2, GROUP5, GROUP14, GROUP15, GROUP16, GROUP19, GROUP20, GROUP21
+                          items:
+                            type: string
+                          type: array
+                          x-kubernetes-list-type: set
+                        tunnelDigestAlgorithms:
+                          description: |-
+                            Digest algorithms to be used for message digest.
+                            One of SHA1, SHA2_256, SHA2_384, SHA2_512
+                            Digest algorithms to be used for message digest. One of SHA1, SHA2_256, SHA2_384, SHA2_512
+                          items:
+                            type: string
+                          type: array
+                          x-kubernetes-list-type: set
+                        tunnelEncryptionAlgorithms:
+                          description: |-
+                            Encryption algorithms to use in IPSec tunnel establishment.
+                            One of AES_128, AES_256, AES_GCM_128, AES_GCM_192, AES_GCM_256, NO_ENCRYPTION_AUTH_AES_GMAC_128,
+                            NO_ENCRYPTION_AUTH_AES_GMAC_192, NO_ENCRYPTION_AUTH_AES_GMAC_256, NO_ENCRYPTION
+                            Encryption algorithms to use in IPSec tunnel establishment. One of AES_128, AES_256, AES_GCM_128, AES_GCM_192, AES_GCM_256, NO_ENCRYPTION_AUTH_AES_GMAC_128, NO_ENCRYPTION_AUTH_AES_GMAC_192, NO_ENCRYPTION_AUTH_AES_GMAC_256, NO_ENCRYPTION
+                          items:
+                            type: string
+                          type: array
+                          x-kubernetes-list-type: set
+                        tunnelPfsEnabled:
+                          description: |-
+                            PFS (Perfect Forward Secrecy) enabled or disabled.
+                            Perfect Forward Secrecy Enabled or Disabled. Default (enabled)
+                          type: boolean
+                        tunnelSaLifetime:
+                          description: |-
+                            Security Association life time in seconds
+                            Security Association life time (in seconds)
+                          type: number
+                      type: object
+                    type: array
+                  vdc:
+                    description: The name of VDC to use, optional if defined at provider
+                      level
+                    type: string
+                required:
+                - preSharedKeySecretRef
+                type: object
+              managementPolicies:
+                default:
+                - '*'
+                description: |-
+                  THIS IS A BETA FIELD. It is on by default but can be opted out
+                  through a Crossplane feature flag.
+                  ManagementPolicies specify the array of actions Crossplane is allowed to
+                  take on the managed and external resources.
+                  This field is planned to replace the DeletionPolicy field in a future
+                  release. Currently, both could be set independently and non-default
+                  values would be honored if the feature flag is enabled. If both are
+                  custom, the DeletionPolicy field will be ignored.
+                  See the design doc for more information: https://github.com/crossplane/crossplane/blob/499895a25d1a1a0ba1604944ef98ac7a1a71f197/design/design-doc-observe-only-resources.md?plain=1#L223
+                  and this one: https://github.com/crossplane/crossplane/blob/444267e84783136daa93568b364a5f01228cacbe/design/one-pager-ignore-changes.md
+                items:
+                  description: |-
+                    A ManagementAction represents an action that the Crossplane controllers
+                    can take on an external resource.
+                  enum:
+                  - Observe
+                  - Create
+                  - Update
+                  - Delete
+                  - LateInitialize
+                  - '*'
+                  type: string
+                type: array
+              providerConfigRef:
+                default:
+                  name: default
+                description: |-
+                  ProviderConfigReference specifies how the provider that will be used to
+                  create, observe, update, and delete this managed resource should be
+                  configured.
+                properties:
+                  name:
+                    description: Name of the referenced object.
+                    type: string
+                  policy:
+                    description: Policies for referencing.
+                    properties:
+                      resolution:
+                        default: Required
+                        description: |-
+                          Resolution specifies whether resolution of this reference is required.
+                          The default is 'Required', which means the reconcile will fail if the
+                          reference cannot be resolved. 'Optional' means this reference will be
+                          a no-op if it cannot be resolved.
+                        enum:
+                        - Required
+                        - Optional
+                        type: string
+                      resolve:
+                        description: |-
+                          Resolve specifies when this reference should be resolved. The default
+                          is 'IfNotPresent', which will attempt to resolve the reference only when
+                          the corresponding field is not present. Use 'Always' to resolve the
+                          reference on every reconcile.
+                        enum:
+                        - Always
+                        - IfNotPresent
+                        type: string
+                    type: object
+                required:
+                - name
+                type: object
+              publishConnectionDetailsTo:
+                description: |-
+                  PublishConnectionDetailsTo specifies the connection secret config which
+                  contains a name, metadata and a reference to secret store config to
+                  which any connection details for this managed resource should be written.
+                  Connection details frequently include the endpoint, username,
+                  and password required to connect to the managed resource.
+                properties:
+                  configRef:
+                    default:
+                      name: default
+                    description: |-
+                      SecretStoreConfigRef specifies which secret store config should be used
+                      for this ConnectionSecret.
+                    properties:
+                      name:
+                        description: Name of the referenced object.
+                        type: string
+                      policy:
+                        description: Policies for referencing.
+                        properties:
+                          resolution:
+                            default: Required
+                            description: |-
+                              Resolution specifies whether resolution of this reference is required.
+                              The default is 'Required', which means the reconcile will fail if the
+                              reference cannot be resolved. 'Optional' means this reference will be
+                              a no-op if it cannot be resolved.
+                            enum:
+                            - Required
+                            - Optional
+                            type: string
+                          resolve:
+                            description: |-
+                              Resolve specifies when this reference should be resolved. The default
+                              is 'IfNotPresent', which will attempt to resolve the reference only when
+                              the corresponding field is not present. Use 'Always' to resolve the
+                              reference on every reconcile.
+                            enum:
+                            - Always
+                            - IfNotPresent
+                            type: string
+                        type: object
+                    required:
+                    - name
+                    type: object
+                  metadata:
+                    description: Metadata is the metadata for connection secret.
+                    properties:
+                      annotations:
+                        additionalProperties:
+                          type: string
+                        description: |-
+                          Annotations are the annotations to be added to connection secret.
+                          - For Kubernetes secrets, this will be used as "metadata.annotations".
+                          - It is up to Secret Store implementation for others store types.
+                        type: object
+                      labels:
+                        additionalProperties:
+                          type: string
+                        description: |-
+                          Labels are the labels/tags to be added to connection secret.
+                          - For Kubernetes secrets, this will be used as "metadata.labels".
+                          - It is up to Secret Store implementation for others store types.
+                        type: object
+                      type:
+                        description: |-
+                          Type is the SecretType for the connection secret.
+                          - Only valid for Kubernetes Secret Stores.
+                        type: string
+                    type: object
+                  name:
+                    description: Name is the name of the connection secret.
+                    type: string
+                required:
+                - name
+                type: object
+              writeConnectionSecretToRef:
+                description: |-
+                  WriteConnectionSecretToReference specifies the namespace and name of a
+                  Secret to which any connection details for this managed resource should
+                  be written. Connection details frequently include the endpoint, username,
+                  and password required to connect to the managed resource.
+                  This field is planned to be replaced in a future release in favor of
+                  PublishConnectionDetailsTo. Currently, both could be set independently
+                  and connection details would be published to both without affecting
+                  each other.
+                properties:
+                  name:
+                    description: Name of the secret.
+                    type: string
+                  namespace:
+                    description: Namespace of the secret.
+                    type: string
+                required:
+                - name
+                - namespace
+                type: object
+            required:
+            - forProvider
+            type: object
+            x-kubernetes-validations:
+            - message: spec.forProvider.edgeGatewayId is a required parameter
+              rule: '!(''*'' in self.managementPolicies || ''Create'' in self.managementPolicies
+                || ''Update'' in self.managementPolicies) || has(self.forProvider.edgeGatewayId)
+                || (has(self.initProvider) && has(self.initProvider.edgeGatewayId))'
+            - message: spec.forProvider.localIpAddress is a required parameter
+              rule: '!(''*'' in self.managementPolicies || ''Create'' in self.managementPolicies
+                || ''Update'' in self.managementPolicies) || has(self.forProvider.localIpAddress)
+                || (has(self.initProvider) && has(self.initProvider.localIpAddress))'
+            - message: spec.forProvider.localNetworks is a required parameter
+              rule: '!(''*'' in self.managementPolicies || ''Create'' in self.managementPolicies
+                || ''Update'' in self.managementPolicies) || has(self.forProvider.localNetworks)
+                || (has(self.initProvider) && has(self.initProvider.localNetworks))'
+            - message: spec.forProvider.name is a required parameter
+              rule: '!(''*'' in self.managementPolicies || ''Create'' in self.managementPolicies
+                || ''Update'' in self.managementPolicies) || has(self.forProvider.name)
+                || (has(self.initProvider) && has(self.initProvider.name))'
+            - message: spec.forProvider.preSharedKeySecretRef is a required parameter
+              rule: '!(''*'' in self.managementPolicies || ''Create'' in self.managementPolicies
+                || ''Update'' in self.managementPolicies) || has(self.forProvider.preSharedKeySecretRef)'
+            - message: spec.forProvider.remoteIpAddress is a required parameter
+              rule: '!(''*'' in self.managementPolicies || ''Create'' in self.managementPolicies
+                || ''Update'' in self.managementPolicies) || has(self.forProvider.remoteIpAddress)
+                || (has(self.initProvider) && has(self.initProvider.remoteIpAddress))'
+          status:
+            description: NsxtIpsecVpnTunnelStatus defines the observed state of NsxtIpsecVpnTunnel.
+            properties:
+              atProvider:
+                properties:
+                  authenticationMode:
+                    description: |-
+                      PSK (pre-shared key) or CERTIFICATE (default -
+                      PSK)
+                      One of 'PSK' (default), 'CERTIFICATE'
+                    type: string
+                  caCertificateId:
+                    description: |-
+                      CA Certificate ID (can be handled by
+                      vcd_library_certificate resource or datasource) Note authentication_mode must be set to
+                      CERTIFICATE
+                      Optional CA certificate ID to use for authentication
+                    type: string
+                  certificateId:
+                    description: |-
+                      Certificate ID (can be handled by vcd_library_certificate
+                      resource or datasource). Note authentication_mode must be set to CERTIFICATE
+                      Optional certificate ID to use for authentication
+                    type: string
+                  description:
+                    description: |-
+                      An optional description of the NSX-T IPsec VPN Tunnel
+                      Description IP Sec VPN Tunnel
+                    type: string
+                  edgeGatewayId:
+                    description: |-
+                      The ID of the Edge Gateway (NSX-T only). Can be looked up using
+                      vcd_nsxt_edgegateway data source
+                      Edge gateway name in which IP Sec VPN configuration is located
+                    type: string
+                  enabled:
+                    description: |-
+                      Enables or disables IPsec VPN Tunnel (default true)
+                      Enables or disables this configuration (default true)
+                    type: boolean
+                  id:
+                    type: string
+                  ikeFailReason:
+                    description: |-
+                      Provides more details of failure if the IKE service is not UP
+                      Provides more details of failure if the IKE service is not UP
+                    type: string
+                  ikeServiceStatus:
+                    description: |-
+                      Status for the actual IKE Session for the given tunnel
+                      Status for the actual IKE Session for the given tunnel
+                    type: string
+                  localIpAddress:
+                    description: |-
+                      IPv4 Address for the endpoint. This has to be a suballocated IP on the Edge Gateway.
+                      IPv4 Address for the endpoint. This has to be a sub-allocated IP on the Edge Gateway.
+                    type: string
+                  localNetworks:
+                    description: |-
+                      A set of local networks in CIDR format. At least one value required
+                      Set of local networks in CIDR format. At least one value is required
+                    items:
+                      type: string
+                    type: array
+                    x-kubernetes-list-type: set
+                  logging:
+                    description: |-
+                      Sets whether logging for the tunnel is enabled or not. (default - false)
+                      Sets whether logging for the tunnel is enabled or not. (default - false)
+                    type: boolean
+                  name:
+                    description: |-
+                      A name for NSX-T IPsec VPN Tunnel
+                      Name of IP Sec VPN Tunnel
+                    type: string
+                  org:
+                    description: |-
+                      The name of organization to use, optional if defined at provider level. Useful
+                      when connected as sysadmin working across different organisations.
+                      The name of organization to use, optional if defined at provider level. Useful when connected as sysadmin working across different organizations
+                    type: string
+                  remoteId:
+                    description: |-
+                      Remote ID uniquely identifies the peer site. If the remote ID is
+                      not set, it will default to the remote IP address
+                      Custom remote ID of the peer site. 'remote_ip_address' is used by default
+                    type: string
+                  remoteIpAddress:
+                    description: |-
+                      Public IPv4 Address of the remote device terminating the VPN connection
+                      Public IPv4 Address of the remote device terminating the VPN connection
+                    type: string
+                  remoteNetworks:
+                    description: |-
+                      Set of remote networks in CIDR format. Leaving it empty is interpreted as 0.0.0.0/0
+                      Set of remote networks in CIDR format. Leaving it empty is interpreted as 0.0.0.0/0
+                    items:
+                      type: string
+                    type: array
+                    x-kubernetes-list-type: set
+                  securityProfile:
+                    description: |-
+                      DEFAULT for system provided configuration or CUSTOM if security_profile_customization is set
+                      Security type which is use for IPsec VPN Tunnel. It will be 'DEFAULT' if nothing is customized and 'CUSTOM' if some changes are applied
+                    type: string
+                  securityProfileCustomization:
+                    description: |-
+                      a block allowing to
+                      customize default security profile parameters
+                      Security profile customization
+                    items:
+                      properties:
+                        dpdProbeInternal:
+                          description: |-
+                            Value in seconds of dead probe detection interval. Minimum is 3 seconds and the
+                            maximum is 60 seconds
+                            Value in seconds of dead probe detection interval. Minimum is 3 seconds and the maximum is 60 seconds
+                          type: number
+                        ikeDhGroups:
+                          description: |-
+                            Diffie-Hellman groups to be used if Perfect Forward Secrecy is enabled. One of
+                            GROUP2, GROUP5, GROUP14, GROUP15, GROUP16, GROUP19, GROUP20, GROUP21
+                            Diffie-Hellman groups to be used if Perfect Forward Secrecy is enabled. One of GROUP2, GROUP5, GROUP14, GROUP15, GROUP16, GROUP19, GROUP20, GROUP21
+                          items:
+                            type: string
+                          type: array
+                          x-kubernetes-list-type: set
+                        ikeDigestAlgorithms:
+                          description: |-
+                            Secure hashing algorithms to use during the IKE negotiation. One of SHA1,
+                            SHA2_256, SHA2_384, SHA2_512
+                            Secure hashing algorithms to use during the IKE negotiation. One of SHA1, SHA2_256, SHA2_384, SHA2_512
+                          items:
+                            type: string
+                          type: array
+                          x-kubernetes-list-type: set
+                        ikeEncryptionAlgorithms:
+                          description: |-
+                            Encryption algorithms One of AES_128, AES_256, AES_GCM_128, AES_GCM_192,
+                            AES_GCM_256
+                            Encryption algorithms. One of SHA1, SHA2_256, SHA2_384, SHA2_512
+                          items:
+                            type: string
+                          type: array
+                          x-kubernetes-list-type: set
+                        ikeSaLifetime:
+                          description: |-
+                            Security association lifetime in seconds. It is number of seconds before the IPsec
+                            tunnel needs to reestablish
+                            Security Association life time (in seconds). It is number of seconds before the IPsec tunnel needs to reestablish
+                          type: number
+                        ikeVersion:
+                          description: |-
+                            One of IKE_V1, IKE_V2, IKE_FLEX
+                            IKE version one of IKE_V1, IKE_V2, IKE_FLEX
+                          type: string
+                        tunnelDfPolicy:
+                          description: |-
+                            Policy for handling defragmentation bit. One of COPY, CLEAR
+                            Policy for handling defragmentation bit. One of COPY, CLEAR
+                          type: string
+                        tunnelDhGroups:
+                          description: |-
+                            Diffie-Hellman groups to be used is PFS is enabled.
+                            One of GROUP2, GROUP5, GROUP14, GROUP15, GROUP16, GROUP19, GROUP20, GROUP21
+                            Diffie-Hellman groups to be used is PFS is enabled. One of GROUP2, GROUP5, GROUP14, GROUP15, GROUP16, GROUP19, GROUP20, GROUP21
+                          items:
+                            type: string
+                          type: array
+                          x-kubernetes-list-type: set
+                        tunnelDigestAlgorithms:
+                          description: |-
+                            Digest algorithms to be used for message digest.
+                            One of SHA1, SHA2_256, SHA2_384, SHA2_512
+                            Digest algorithms to be used for message digest. One of SHA1, SHA2_256, SHA2_384, SHA2_512
+                          items:
+                            type: string
+                          type: array
+                          x-kubernetes-list-type: set
+                        tunnelEncryptionAlgorithms:
+                          description: |-
+                            Encryption algorithms to use in IPSec tunnel establishment.
+                            One of AES_128, AES_256, AES_GCM_128, AES_GCM_192, AES_GCM_256, NO_ENCRYPTION_AUTH_AES_GMAC_128,
+                            NO_ENCRYPTION_AUTH_AES_GMAC_192, NO_ENCRYPTION_AUTH_AES_GMAC_256, NO_ENCRYPTION
+                            Encryption algorithms to use in IPSec tunnel establishment. One of AES_128, AES_256, AES_GCM_128, AES_GCM_192, AES_GCM_256, NO_ENCRYPTION_AUTH_AES_GMAC_128, NO_ENCRYPTION_AUTH_AES_GMAC_192, NO_ENCRYPTION_AUTH_AES_GMAC_256, NO_ENCRYPTION
+                          items:
+                            type: string
+                          type: array
+                          x-kubernetes-list-type: set
+                        tunnelPfsEnabled:
+                          description: |-
+                            PFS (Perfect Forward Secrecy) enabled or disabled.
+                            Perfect Forward Secrecy Enabled or Disabled. Default (enabled)
+                          type: boolean
+                        tunnelSaLifetime:
+                          description: |-
+                            Security Association life time in seconds
+                            Security Association life time (in seconds)
+                          type: number
+                      type: object
+                    type: array
+                  status:
+                    description: |-
+                      Overall IPsec VPN Tunnel Status
+                      Overall IPsec VPN Tunnel Status
+                    type: string
+                  vdc:
+                    description: The name of VDC to use, optional if defined at provider
+                      level
+                    type: string
+                type: object
+              conditions:
+                description: Conditions of the resource.
+                items:
+                  description: A Condition that may apply to a resource.
+                  properties:
+                    lastTransitionTime:
+                      description: |-
+                        LastTransitionTime is the last time this condition transitioned from one
+                        status to another.
+                      format: date-time
+                      type: string
+                    message:
+                      description: |-
+                        A Message containing details about this condition's last transition from
+                        one status to another, if any.
+                      type: string
+                    observedGeneration:
+                      description: |-
+                        ObservedGeneration represents the .metadata.generation that the condition was set based upon.
+                        For instance, if .metadata.generation is currently 12, but the .status.conditions[x].observedGeneration is 9, the condition is out of date
+                        with respect to the current state of the instance.
+                      format: int64
+                      type: integer
+                    reason:
+                      description: A Reason for this condition's last transition from
+                        one status to another.
+                      type: string
+                    status:
+                      description: Status of this condition; is it currently True,
+                        False, or Unknown?
+                      type: string
+                    type:
+                      description: |-
+                        Type of this condition. At most one of each condition type may apply to
+                        a resource at any point in time.
+                      type: string
+                  required:
+                  - lastTransitionTime
+                  - reason
+                  - status
+                  - type
+                  type: object
+                type: array
+                x-kubernetes-list-map-keys:
+                - type
+                x-kubernetes-list-type: map
+              observedGeneration:
+                description: |-
+                  ObservedGeneration is the latest metadata.generation
+                  which resulted in either a ready state, or stalled due to error
+                  it can not recover from without human intervention.
+                format: int64
+                type: integer
+            type: object
+        required:
+        - spec
+        type: object
+    served: true
+    storage: true
+    subresources:
+      status: {}

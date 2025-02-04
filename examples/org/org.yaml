@@ -1,7 +1,7 @@
 apiVersion: vcd.upbound.io/v1alpha1
 kind: Org
 metadata:
-  name: crossplane
+  name: my-org
 spec:
   forProvider:
     accountLockout:
@@ -10,10 +10,10 @@ spec:
       lockoutIntervalMinutes: 60
     deleteForce: true
     deleteRecursive: true
-    description: Test building an org form crossplanes
-    fullName: Crossplane organization
+    description: Test building an org 
+    fullName: My Organisation
     isEnabled: true
-    name: crossplane
+    name: my-org
     vappLease:
     - deleteOnStorageLeaseExpiration: false
       maximumRuntimeLeaseInSec: 3600

@@ -22,11 +22,10 @@ jobs:
         uses: actions/github-script@v6
         with:
           script: |
+            const { GITHUB_TOKEN } = process.env;
             const version = core.getInput('version');
             const message = core.getInput('message');
-            const { GITHUB_TOKEN } = process.env;
-
-            const octokit = github.getOctokit(GITHUB_TOKEN);
+            const octokit = require('@actions/github').getOctokit(GITHUB_TOKEN);
 
             await octokit.rest.git.createTag({
               owner: context.repo.owner,

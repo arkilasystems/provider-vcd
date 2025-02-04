@@ -319,4 +319,4 @@ jobs:
 
       - name: Publish Artifacts
         if: env.UPBOUND_MARKETPLACE_PUSH_ROBOT_USR != ''
-        run: make publish BRANCH_NAME=${GITHUB_REF##*/} VERBOSE=1
+        run: make publish BRANCH_NAME=${GITHUB_REF##*/}

@@ -1,7 +1,7 @@
 apiVersion: vcd.upbound.io/v1alpha1
 kind: Org
 metadata:
-  name: my-org
+  name: crossplane-test
 spec:
   forProvider:
     accountLockout:
@@ -13,7 +13,7 @@ spec:
     description: Test building an org 
     fullName: My Organisation
     isEnabled: true
-    name: my-org
+    name: crossplane-test
     vappLease:
     - deleteOnStorageLeaseExpiration: false
       maximumRuntimeLeaseInSec: 3600

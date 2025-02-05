@@ -1,46 +1,18 @@
 name: Tag
 
 on:
-  workflow_dispatch:
+  workflow_dispatch: 
     inputs:
       version:
-        description: "Release version (e.g. v0.1.0)"
+        description: 'Release version (e.g. v0.1.0)'
         required: true
       message:
-        description: "Tag message"
+        description: 'Tag message'
         required: true
 
 jobs:
-  create-tag:
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4.2.2
-
-      - name: Create Tag
-        uses: actions/github-script@v6
-        with:
-          script: |
-            const { GITHUB_TOKEN } = process.env;
-            const version = core.getInput('version');
-            const message = core.getInput('message');
-            const octokit = require('@actions/github').getOctokit(GITHUB_TOKEN);
-
-            await octokit.rest.git.createTag({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              tag: version,
-              message: message,
-              object: context.sha,
-              type: 'commit',
-            });
-
-            await octokit.rest.git.createRef({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              ref: `refs/tags/${version}`,
-              sha: context.sha,
-            });
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+  tag:
+    uses: upbound/uptest/.github/workflows/provider-tag.yml@main
+    with:
+      version: ${{ github.event.inputs.version }}
+      message: ${{ github.event.inputs.message }}

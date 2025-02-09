@@ -1,0 +1,19 @@
+apiVersion: vcd.upbound.io/v1alpha1
+kind: NsxtNatRule
+metadata:
+  annotations:
+    meta.upbound.io/example-id: vcd/v1alpha1/nsxtnatrule
+  labels:
+    testing.upbound.io/example-name: snat
+  name: snat
+spec:
+  forProvider:
+    description: description
+    edgeGatewayId: ${data.vcd_nsxt_edgegateway.existing.id}
+    externalAddress: ${tolist(data.vcd_nsxt_edgegateway.existing.subnet)[0].primary_ip}
+    internalAddress: 11.11.11.0/24
+    logging: true
+    name: SNAT rule
+    org: dainius
+    ruleType: SNAT
+    snatDestinationAddress: 8.8.8.8

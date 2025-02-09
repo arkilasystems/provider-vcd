@@ -1,0 +1,14 @@
+apiVersion: vcd.upbound.io/v1alpha1
+kind: NsxtAlbEdgegatewayServiceEngineGroup
+metadata:
+  annotations:
+    meta.upbound.io/example-id: vcd/v1alpha1/nsxtalbedgegatewayserviceenginegroup
+  labels:
+    testing.upbound.io/example-name: first
+  name: first
+spec:
+  forProvider:
+    edgeGatewayId: ${data.vcd_nsxt_edgegateway.existing.id}
+    maxVirtualServices: 100
+    reservedVirtualServices: 30
+    serviceEngineGroupId: ${data.vcd_nsxt_alb_service_engine_group.first.id}

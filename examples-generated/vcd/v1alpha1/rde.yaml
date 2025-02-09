@@ -1,0 +1,15 @@
+apiVersion: vcd.upbound.io/v1alpha1
+kind: Rde
+metadata:
+  annotations:
+    meta.upbound.io/example-id: vcd/v1alpha1/rde
+  labels:
+    testing.upbound.io/example-name: my_rde
+  name: my-rde
+spec:
+  forProvider:
+    inputEntity: ${file("${path.module}/entities/custom-rde.json")}
+    name: My custom RDE
+    org: my-org
+    rdeTypeId: ${data.vcd_rde_type.my-type.id}
+    resolve: true

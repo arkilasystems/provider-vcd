@@ -1,0 +1,56 @@
+apiVersion: vcd.upbound.io/v1alpha1
+kind: VAppStaticRouting
+metadata:
+  annotations:
+    meta.upbound.io/example-id: vcd/v1alpha1/vappstaticrouting
+  labels:
+    testing.upbound.io/example-name: vapp1-static-routing
+  name: vapp1-static-routing
+spec:
+  forProvider:
+    enabled: true
+    networkId: ${vcd_vapp_network.vapp-net.id}
+    rule:
+    - name: rule1
+      networkCidr: 10.10.0.0/24
+      nextHopIp: 192.168.2.2
+    - name: rule2
+      networkCidr: 10.10.1.0/24
+      nextHopIp: 192.168.2.3
+    vappId: ${vcd_vapp.web.id}
+
+---
+
+apiVersion: vcd.upbound.io/v1alpha1
+kind: VApp
+metadata:
+  annotations:
+    meta.upbound.io/example-id: vcd/v1alpha1/vappstaticrouting
+  labels:
+    testing.upbound.io/example-name: web
+  name: web
+spec:
+  forProvider:
+    name: web
+
+---
+
+apiVersion: vcd.upbound.io/v1alpha1
+kind: VAppNetwork
+metadata:
+  annotations:
+    meta.upbound.io/example-id: vcd/v1alpha1/vappstaticrouting
+  labels:
+    testing.upbound.io/example-name: vapp-net
+  name: vapp-net
+spec:
+  forProvider:
+    dns1: 192.168.2.1
+    gateway: 192.168.2.1
+    name: my-vapp-net
+    netmask: 255.255.255.0
+    orgNetworkName: my-vdc-int-net
+    staticIpPool:
+    - endAddress: 192.168.2.100
+      startAddress: 192.168.2.51
+    vappName: web

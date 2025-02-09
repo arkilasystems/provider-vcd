@@ -1,0 +1,22 @@
+apiVersion: vcd.upbound.io/v1alpha1
+kind: NsxtEdgeGateway
+metadata:
+  annotations:
+    meta.upbound.io/example-id: vcd/v1alpha1/nsxtedgegateway
+  labels:
+    testing.upbound.io/example-name: nsxt-edge
+  name: nsxt-edge
+spec:
+  forProvider:
+    description: Description
+    externalNetworkId: ${data.vcd_external_network_v2.nsxt-ext-net.id}
+    name: nsxt-edge
+    org: my-org
+    ownerId: ${data.vcd_org_vdc.vdc1.id}
+    subnet:
+    - allocatedIps:
+      - endAddress: 10.150.160.138
+        startAddress: 10.150.160.137
+      gateway: 10.150.191.253
+      prefixLength: "19"
+      primaryIp: 10.150.160.137

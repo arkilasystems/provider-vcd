@@ -1,0 +1,18 @@
+apiVersion: vcd.upbound.io/v1alpha1
+kind: NsxvIpSet
+metadata:
+  annotations:
+    meta.upbound.io/example-id: vcd/v1alpha1/nsxvipset
+  labels:
+    testing.upbound.io/example-name: test-ipset
+  name: test-ipset
+spec:
+  forProvider:
+    description: test-ip-set-changed-description
+    ipAddresses:
+    - 1.1.1.1/24
+    - 10.10.10.100-10.10.10.110
+    isInheritanceAllowed: false
+    name: ipset-one
+    org: my-org
+    vdc: my-org-vdc

@@ -1,0 +1,23 @@
+apiVersion: vcd.upbound.io/v1alpha1
+kind: GlobalRole
+metadata:
+  annotations:
+    meta.upbound.io/example-id: vcd/v1alpha1/globalrole
+  labels:
+    testing.upbound.io/example-name: new-global-role
+  name: new-global-role
+spec:
+  forProvider:
+    description: new global role from CLI
+    name: new-global-role
+    publishToAllTenants: false
+    rights:
+    - 'Catalog: Add vApp from My Cloud'
+    - 'Catalog: Edit Properties'
+    - 'Catalog: View Private and Shared Catalogs'
+    - 'Organization vDC Compute Policy: View'
+    - 'vApp Template / Media: Edit'
+    - 'vApp Template / Media: View'
+    tenants:
+    - org1
+    - org2

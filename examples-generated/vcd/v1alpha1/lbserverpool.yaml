@@ -1,0 +1,24 @@
+apiVersion: vcd.upbound.io/v1alpha1
+kind: LbServerPool
+metadata:
+  annotations:
+    meta.upbound.io/example-id: vcd/v1alpha1/lbserverpool
+  labels:
+    testing.upbound.io/example-name: web-servers
+  name: web-servers
+spec:
+  forProvider:
+    algorithm: round-robin
+    edgeGateway: my-edge-gw
+    member:
+    - condition: enabled
+      ipAddress: 1.1.1.1
+      maxConnections: 100
+      minConnections: 0
+      monitorPort: 9000
+      name: member1
+      port: 8443
+      weight: 1
+    name: web-servers
+    org: my-org
+    vdc: my-org-vdc

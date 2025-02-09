@@ -1,0 +1,12 @@
+apiVersion: vcd.upbound.io/v1alpha1
+kind: VAppAccessControl
+metadata:
+  annotations:
+    meta.upbound.io/example-id: vcd/v1alpha1/vappaccesscontrol
+  labels:
+    testing.upbound.io/example-name: AC-not-shared
+  name: ac-not-shared
+spec:
+  forProvider:
+    sharedWithEveryone: false
+    vappId: ${data.vcd_vapp.Vapp-AC-0.id}

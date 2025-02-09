@@ -1,0 +1,23 @@
+apiVersion: vcd.upbound.io/v1alpha1
+kind: NsxtDistributedFirewallRule
+metadata:
+  annotations:
+    meta.upbound.io/example-id: vcd/v1alpha1/nsxtdistributedfirewallrule
+  labels:
+    testing.upbound.io/example-name: r1
+  name: r1
+spec:
+  forProvider:
+    action: ALLOW
+    appPortProfileIds:
+    - ${data.vcd_nsxt_app_port_profile.FTP.id}
+    description: description
+    destinationIds:
+    - ${vcd_nsxt_security_group.g1-empty.id}
+    - ${vcd_nsxt_security_group.g2.id}
+    name: rule1
+    org: my-org
+    sourceIds:
+    - ${vcd_nsxt_ip_set.set1.id}
+    - ${vcd_nsxt_ip_set.set2.id}
+    vdcGroupId: ${data.vcd_vdc_group.test1.id}

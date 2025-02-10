@@ -16,3 +16,5 @@ jobs:
     with:
       version: ${{ github.event.inputs.version }}
       message: ${{ github.event.inputs.message }}
+    secrets:
+      token: ${{ secrets.TAG_TOKEN }}

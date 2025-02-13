@@ -137,11 +137,6 @@ spec:
                       ID of the default Compute Policy for this VDC. It can be a VM Sizing Policy, a VM Placement Policy or a vGPU Policy.
                       ID of default Compute policy for this VDC, which can be a VM Sizing Policy, VM Placement Policy or vGPU Policy
                     type: string
-                  defaultVmSizingPolicyId:
-                    description: |-
-                      (Deprecated; Optional, v3.0+, VCD 10.2+) ID of the default Compute Policy for this VDC. It can be a VM Sizing Policy, a VM Placement Policy or a vGPU Policy. Deprecated in favor of default_compute_policy_id.
-                      ID of default VM Compute policy, which can be a VM Sizing Policy, VM Placement Policy or vGPU Policy
-                    type: string
                   deleteForce:
                     description: |-
                       When destroying use delete_force=true to remove a VDC and any objects it contains, regardless of their state. Default is false

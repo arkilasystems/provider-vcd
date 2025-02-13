@@ -1,0 +1,19 @@
+apiVersion: vcd.upbound.io/v1alpha1
+kind: VdcGroup
+metadata:
+  annotations:
+    meta.upbound.io/example-id: vcd/v1alpha1/vdcgroup
+  labels:
+    testing.upbound.io/example-name: new-vdc-group
+  name: new-vdc-group
+spec:
+  forProvider:
+    defaultPolicyStatus: true
+    description: my description
+    dfwEnabled: true
+    name: newVdcGroup
+    org: myOrg
+    participatingVdcIds:
+    - ${data.vcd_org_vdc.startVdc.id}
+    - ${data.vcd_org_vdc.additionalVdc.id}
+    startingVdcId: ${data.vcd_org_vdc.startVdc.id}

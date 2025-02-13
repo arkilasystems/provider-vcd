@@ -1,0 +1,14 @@
+apiVersion: vcd.upbound.io/v1alpha1
+kind: NetworkDirect
+metadata:
+  annotations:
+    meta.upbound.io/example-id: vcd/v1alpha1/networkdirect
+  labels:
+    testing.upbound.io/example-name: net
+  name: net
+spec:
+  forProvider:
+    externalNetwork: my-ext-net
+    name: my-net
+    org: my-org
+    vdc: my-vdc

@@ -1,0 +1,37 @@
+apiVersion: vcd.upbound.io/v1alpha1
+kind: RdeInterfaceBehavior
+metadata:
+  annotations:
+    meta.upbound.io/example-id: vcd/v1alpha1/rdeinterfacebehavior
+  labels:
+    testing.upbound.io/example-name: my_behavior
+  name: my-behavior
+spec:
+  forProvider:
+    description: |
+      Adds a node to the cluster.
+      Parameters:
+        clusterId: the ID of the cluster
+        node: The node address
+    execution:
+      id: MyExecution
+      type: Activity
+    name: MyBehavior
+    rdeInterfaceId: ${vcd_rde_interface.my_interface.id}
+
+---
+
+apiVersion: vcd.upbound.io/v1alpha1
+kind: RdeInterface
+metadata:
+  annotations:
+    meta.upbound.io/example-id: vcd/v1alpha1/rdeinterfacebehavior
+  labels:
+    testing.upbound.io/example-name: my_interface
+  name: my-interface
+spec:
+  forProvider:
+    name: BigCorp Interface
+    nss: tech
+    vendor: bigcorp
+    version: 1.2.3

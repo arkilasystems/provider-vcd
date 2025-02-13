@@ -1,0 +1,29 @@
+apiVersion: vcd.upbound.io/v1alpha1
+kind: CatalogvAppTemplate
+metadata:
+  annotations:
+    meta.upbound.io/example-id: vcd/v1alpha1/catalogvapptemplate
+  labels:
+    testing.upbound.io/example-name: myNewVappTemplate
+  name: mynewvapptemplate
+spec:
+  forProvider:
+    catalogId: ${data.vcd_catalog.my-catalog.id}
+    description: new vapp template
+    lease:
+    - storageLeaseInSec: ${60 * 60 * 24 * 7}
+    metadataEntry:
+    - isSystem: false
+      key: license
+      type: MetadataStringValue
+      userAccess: READWRITE
+      value: public
+    - isSystem: false
+      key: version
+      type: MetadataStringValue
+      userAccess: READWRITE
+      value: v1
+    name: my ova
+    org: my-org
+    ovaPath: /home/user/file.ova
+    uploadPieceSize: 10

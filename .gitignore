@@ -5,7 +5,7 @@ cover.out
 /vendor
 /.vendor-new
 .DS_Store
-/examples-generateds
+
 # ignore IDE folders
 .vscode/
 .idea/

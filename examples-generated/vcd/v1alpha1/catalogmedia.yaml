@@ -1,0 +1,21 @@
+apiVersion: vcd.upbound.io/v1alpha1
+kind: CatalogMedia
+metadata:
+  annotations:
+    meta.upbound.io/example-id: vcd/v1alpha1/catalogmedia
+  labels:
+    testing.upbound.io/example-name: myNewMedia
+  name: mynewmedia
+spec:
+  forProvider:
+    catalogId: ${data.vcd_catalog.my-catalog.id}
+    description: new os versions
+    mediaPath: /home/user/file.iso
+    metadataEntry:
+    - key: license
+      value: public
+    - key: version
+      value: v1
+    name: my iso
+    org: my-org
+    uploadPieceSize: 10

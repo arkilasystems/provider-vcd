@@ -3,4 +3,4 @@ kind: Provider
 metadata:
   name: provider-vcd
 spec:
-  package: arkilasystems/provider-vcd:v0.1.0
+  package: arkilasystems/provider-vcd:v0.2.0

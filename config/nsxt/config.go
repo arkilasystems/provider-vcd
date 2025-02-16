@@ -77,6 +77,9 @@ func Configure(p *config.Provider) {
 		r.ShortGroup = shortGroup
 		r.Kind = "NsxtEdgeGateway"
 		r.Version = version
+		r.LateInitializer = config.LateInitializer{
+            IgnoredFields: []string{"vdc"}, // Add deprecated fields here
+        }
 	})
 
 	p.AddResourceConfigurator("vcd_nsxt_edgegateway_bgp_configuration", func(r *config.Resource) {

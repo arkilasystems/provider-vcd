@@ -42,8 +42,8 @@ func Configure(p *config.Provider) {
 		r.Kind = "OrgVdc"
 		r.Version = version
 		r.LateInitializer = config.LateInitializer{
-            IgnoredFields: []string{"defaultVmSizingPolicyId"}, // Add deprecated fields here
-        }
+			IgnoredFields: []string{"defaultVmSizingPolicyId"}, // Add deprecated fields here
+		}
 	})
 
 	p.AddResourceConfigurator("vcd_org_vdc_access_control", func(r *config.Resource) {

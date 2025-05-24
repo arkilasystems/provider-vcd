@@ -292,12 +292,6 @@ spec:
                       Note. It sets or reports IP count only for NSX-T Tier 0 backed external network Uplink.
                       Total number of IP addresses allocated for this gateway from Tier0 uplink. Can be set with 'subnet_with_total_ip_count' definitions only
                     type: number
-                  vdc:
-                    description: |-
-                      Deprecated in favor of owner_id. The name of VDC that owns the edge
-                      gateway. Can be inherited from provider configuration if not defined here.
-                      The name of VDC to use, optional if defined at provider level
-                    type: string
                 type: object
               initProvider:
                 description: |-
@@ -530,12 +524,6 @@ spec:
                       Note. It sets or reports IP count only for NSX-T Tier 0 backed external network Uplink.
                       Total number of IP addresses allocated for this gateway from Tier0 uplink. Can be set with 'subnet_with_total_ip_count' definitions only
                     type: number
-                  vdc:
-                    description: |-
-                      Deprecated in favor of owner_id. The name of VDC that owns the edge
-                      gateway. Can be inherited from provider configuration if not defined here.
-                      The name of VDC to use, optional if defined at provider level
-                    type: string
                 type: object
               managementPolicies:
                 default:
@@ -966,12 +954,6 @@ spec:
                       exposed when using IP Spaces.
                       Number of used IP addresses
                     type: number
-                  vdc:
-                    description: |-
-                      Deprecated in favor of owner_id. The name of VDC that owns the edge
-                      gateway. Can be inherited from provider configuration if not defined here.
-                      The name of VDC to use, optional if defined at provider level
-                    type: string
                 type: object
               conditions:
                 description: Conditions of the resource.

@@ -138,10 +138,6 @@ type OrgVdcInitParameters struct {
 	// ID of default Compute policy for this VDC, which can be a VM Sizing Policy, VM Placement Policy or vGPU Policy
 	DefaultComputePolicyID *string `json:"defaultComputePolicyId,omitempty" tf:"default_compute_policy_id,omitempty"`
 
-	// (Deprecated; Optional, v3.0+, VCD 10.2+) ID of the default Compute Policy for this VDC. It can be a VM Sizing Policy, a VM Placement Policy or a vGPU Policy. Deprecated in favor of default_compute_policy_id.
-	// ID of default VM Compute policy, which can be a VM Sizing Policy, VM Placement Policy or vGPU Policy
-	DefaultVMSizingPolicyID *string `json:"defaultVmSizingPolicyId,omitempty" tf:"default_vm_sizing_policy_id,omitempty"`
-
 	// When destroying use delete_force=true to remove a VDC and any objects it contains, regardless of their state. Default is false
 	// When destroying use delete_force=True to remove a VDC and any objects it contains, regardless of their state.
 	DeleteForce *bool `json:"deleteForce,omitempty" tf:"delete_force,omitempty"`
@@ -348,10 +344,6 @@ type OrgVdcObservation struct {
 	// ID of default Compute policy for this VDC, which can be a VM Sizing Policy, VM Placement Policy or vGPU Policy
 	DefaultComputePolicyID *string `json:"defaultComputePolicyId,omitempty" tf:"default_compute_policy_id,omitempty"`
 
-	// (Deprecated; Optional, v3.0+, VCD 10.2+) ID of the default Compute Policy for this VDC. It can be a VM Sizing Policy, a VM Placement Policy or a vGPU Policy. Deprecated in favor of default_compute_policy_id.
-	// ID of default VM Compute policy, which can be a VM Sizing Policy, VM Placement Policy or vGPU Policy
-	DefaultVMSizingPolicyID *string `json:"defaultVmSizingPolicyId,omitempty" tf:"default_vm_sizing_policy_id,omitempty"`
-
 	// When destroying use delete_force=true to remove a VDC and any objects it contains, regardless of their state. Default is false
 	// When destroying use delete_force=True to remove a VDC and any objects it contains, regardless of their state.
 	DeleteForce *bool `json:"deleteForce,omitempty" tf:"delete_force,omitempty"`
@@ -491,11 +483,6 @@ type OrgVdcParameters struct {
 	// ID of default Compute policy for this VDC, which can be a VM Sizing Policy, VM Placement Policy or vGPU Policy
 	// +kubebuilder:validation:Optional
 	DefaultComputePolicyID *string `json:"defaultComputePolicyId,omitempty" tf:"default_compute_policy_id,omitempty"`
-
-	// (Deprecated; Optional, v3.0+, VCD 10.2+) ID of the default Compute Policy for this VDC. It can be a VM Sizing Policy, a VM Placement Policy or a vGPU Policy. Deprecated in favor of default_compute_policy_id.
-	// ID of default VM Compute policy, which can be a VM Sizing Policy, VM Placement Policy or vGPU Policy
-	// +kubebuilder:validation:Optional
-	DefaultVMSizingPolicyID *string `json:"defaultVmSizingPolicyId,omitempty" tf:"default_vm_sizing_policy_id,omitempty"`
 
 	// When destroying use delete_force=true to remove a VDC and any objects it contains, regardless of their state. Default is false
 	// When destroying use delete_force=True to remove a VDC and any objects it contains, regardless of their state.

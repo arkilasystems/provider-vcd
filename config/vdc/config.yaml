@@ -1,0 +1,4 @@
+resources:
+  "vcd_org_vdc":
+    excluded_fields:
+      - "default_vm_sizing_policy_id"  # Use the Terraform schema name (snake_case)

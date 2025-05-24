@@ -41,8 +41,9 @@ func Configure(p *config.Provider) {
 		r.ShortGroup = shortGroup
 		r.Kind = "OrgVdc"
 		r.Version = version
-		r.LateInitializer = config.LateInitializer{
-			IgnoredFields: []string{"defaultVmSizingPolicyId"}, // Add deprecated fields here
+		// Remove deprecated field
+		if r.TerraformResource.Schema != nil {
+			delete(r.TerraformResource.Schema, "default_vm_sizing_policy_id")
 		}
 	})
 

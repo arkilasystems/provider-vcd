@@ -214,11 +214,6 @@ type NsxtEdgeGatewayInitParameters struct {
 	// Note. It sets or reports IP count only for NSX-T Tier 0 backed external network Uplink.
 	// Total number of IP addresses allocated for this gateway from Tier0 uplink. Can be set with 'subnet_with_total_ip_count' definitions only
 	TotalAllocatedIPCount *float64 `json:"totalAllocatedIpCount,omitempty" tf:"total_allocated_ip_count,omitempty"`
-
-	// Deprecated in favor of owner_id. The name of VDC that owns the edge
-	// gateway. Can be inherited from provider configuration if not defined here.
-	// The name of VDC to use, optional if defined at provider level
-	Vdc *string `json:"vdc,omitempty" tf:"vdc,omitempty"`
 }
 
 type NsxtEdgeGatewayObservation struct {
@@ -341,11 +336,6 @@ type NsxtEdgeGatewayObservation struct {
 	// exposed when using IP Spaces.
 	// Number of used IP addresses
 	UsedIPCount *float64 `json:"usedIpCount,omitempty" tf:"used_ip_count,omitempty"`
-
-	// Deprecated in favor of owner_id. The name of VDC that owns the edge
-	// gateway. Can be inherited from provider configuration if not defined here.
-	// The name of VDC to use, optional if defined at provider level
-	Vdc *string `json:"vdc,omitempty" tf:"vdc,omitempty"`
 }
 
 type NsxtEdgeGatewayParameters struct {
@@ -459,12 +449,6 @@ type NsxtEdgeGatewayParameters struct {
 	// Total number of IP addresses allocated for this gateway from Tier0 uplink. Can be set with 'subnet_with_total_ip_count' definitions only
 	// +kubebuilder:validation:Optional
 	TotalAllocatedIPCount *float64 `json:"totalAllocatedIpCount,omitempty" tf:"total_allocated_ip_count,omitempty"`
-
-	// Deprecated in favor of owner_id. The name of VDC that owns the edge
-	// gateway. Can be inherited from provider configuration if not defined here.
-	// The name of VDC to use, optional if defined at provider level
-	// +kubebuilder:validation:Optional
-	Vdc *string `json:"vdc,omitempty" tf:"vdc,omitempty"`
 }
 
 type NsxtEdgeGatewaySubnetInitParameters struct {

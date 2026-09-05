@@ -8,14 +8,14 @@ import (
 	"context"
 	"encoding/json"
 
-	"github.com/crossplane/crossplane-runtime/pkg/resource"
+	"github.com/crossplane/crossplane-runtime/v2/pkg/resource"
 	"github.com/pkg/errors"
 	"k8s.io/apimachinery/pkg/types"
 	"sigs.k8s.io/controller-runtime/pkg/client"
 
-	"github.com/crossplane/upjet/pkg/terraform"
+	"github.com/crossplane/upjet/v2/pkg/terraform"
 
-	"github.com/arkilasystems/provider-vcd/apis/v1beta1"
+	"github.com/arkilasystems/provider-vcd/apis/cluster/v1beta1"
 )
 
 const (

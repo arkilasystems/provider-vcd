@@ -35,6 +35,33 @@ import (
 	vdcGroup "github.com/arkilasystems/provider-vcd/config/cluster/vdc_group"
 	vm "github.com/arkilasystems/provider-vcd/config/cluster/vm"
 
+	apiTokenNamespaced "github.com/arkilasystems/provider-vcd/config/namespaced/api_token"
+	catalogNamespaced "github.com/arkilasystems/provider-vcd/config/namespaced/catalog"
+	certificateLibraryNamespaced "github.com/arkilasystems/provider-vcd/config/namespaced/certificate_library"
+	clonedvAppNamespaced "github.com/arkilasystems/provider-vcd/config/namespaced/cloned_vapp"
+	edgegatewayNamespaced "github.com/arkilasystems/provider-vcd/config/namespaced/edgegateway"
+	externalNetworkNamespaced "github.com/arkilasystems/provider-vcd/config/namespaced/external_network"
+	globalRoleNamespaced "github.com/arkilasystems/provider-vcd/config/namespaced/global_role"
+	independentDiskNamespaced "github.com/arkilasystems/provider-vcd/config/namespaced/independent_disk"
+	insertedMediaNamespaced "github.com/arkilasystems/provider-vcd/config/namespaced/inserted_media"
+	ipSpaceNamespaced "github.com/arkilasystems/provider-vcd/config/namespaced/ip_space"
+	lbNamespaced "github.com/arkilasystems/provider-vcd/config/namespaced/lb"
+	networkNamespaced "github.com/arkilasystems/provider-vcd/config/namespaced/network"
+	nsxtNamespaced "github.com/arkilasystems/provider-vcd/config/namespaced/nsxt"
+	nsxvNamespaced "github.com/arkilasystems/provider-vcd/config/namespaced/nsxv"
+	orgNamespaced "github.com/arkilasystems/provider-vcd/config/namespaced/org"
+	providerVdcNamespaced "github.com/arkilasystems/provider-vcd/config/namespaced/provider_vdc"
+	rdeNamespaced "github.com/arkilasystems/provider-vcd/config/namespaced/rde"
+	rightsBundleNamespaced "github.com/arkilasystems/provider-vcd/config/namespaced/rights_bundle"
+	roleNamespaced "github.com/arkilasystems/provider-vcd/config/namespaced/role"
+	securityTagNamespaced "github.com/arkilasystems/provider-vcd/config/namespaced/security_tag"
+	serviceAccountNamespaced "github.com/arkilasystems/provider-vcd/config/namespaced/service_account"
+	subscribedCatalogNamespaced "github.com/arkilasystems/provider-vcd/config/namespaced/subscribed_catalog"
+	uiPluginNamespaced "github.com/arkilasystems/provider-vcd/config/namespaced/ui_plugin"
+	vAppNamespaced "github.com/arkilasystems/provider-vcd/config/namespaced/vapp"
+	vdcGroupNamespaced "github.com/arkilasystems/provider-vcd/config/namespaced/vdc_group"
+	vmNamespaced "github.com/arkilasystems/provider-vcd/config/namespaced/vm"
+
 	ujconfig "github.com/crossplane/upjet/v2/pkg/config"
 )
 
@@ -87,6 +114,55 @@ func GetProvider() *ujconfig.Provider {
 		vApp.Configure,
 		vdcGroup.Configure,
 		vm.Configure,
+	} {
+		configure(pc)
+	}
+
+	pc.ConfigureResources()
+	return pc
+}
+
+// GetProviderNamespaced returns the namespaced provider configuration
+func GetProviderNamespaced() *ujconfig.Provider {
+	pc := ujconfig.NewProvider([]byte(providerSchema), resourcePrefix, modulePath, []byte(providerMetadata),
+		ujconfig.WithRootGroup("m.upbound.io"),
+		ujconfig.WithIncludeList(ExternalNameConfigured()),
+		ujconfig.WithFeaturesPackage("internal/features"),
+		ujconfig.WithDefaultResourceOptions(
+			ExternalNameConfigurations(),
+		),
+		ujconfig.WithExampleManifestConfiguration(ujconfig.ExampleManifestConfiguration{
+			ManagedResourceNamespace: "crossplane-system",
+		}))
+
+	for _, configure := range []func(provider *ujconfig.Provider){
+		// add custom config functions
+		apiTokenNamespaced.Configure,
+		catalogNamespaced.Configure,
+		certificateLibraryNamespaced.Configure,
+		clonedvAppNamespaced.Configure,
+		edgegatewayNamespaced.Configure,
+		externalNetworkNamespaced.Configure,
+		globalRoleNamespaced.Configure,
+		independentDiskNamespaced.Configure,
+		insertedMediaNamespaced.Configure,
+		ipSpaceNamespaced.Configure,
+		lbNamespaced.Configure,
+		networkNamespaced.Configure,
+		nsxtNamespaced.Configure,
+		nsxvNamespaced.Configure,
+		orgNamespaced.Configure,
+		providerVdcNamespaced.Configure,
+		rdeNamespaced.Configure,
+		rightsBundleNamespaced.Configure,
+		roleNamespaced.Configure,
+		securityTagNamespaced.Configure,
+		serviceAccountNamespaced.Configure,
+		subscribedCatalogNamespaced.Configure,
+		uiPluginNamespaced.Configure,
+		vAppNamespaced.Configure,
+		vdcGroupNamespaced.Configure,
+		vmNamespaced.Configure,
 	} {
 		configure(pc)
 	}

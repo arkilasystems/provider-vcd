@@ -304,7 +304,12 @@ jobs:
         run: make vendor vendor.check
 
       - name: Build Artifacts
-        run: make -j2 build.all
+        # Not -j2: the two platform builds both depend on the same shared,
+        # not-yet-downloaded build tool (crossplane-cli), and running them
+        # in parallel races both invocations to write the same cache path
+        # concurrently ("curl: (23) Failure writing output to destination").
+        # Serial execution avoids the race; this step isn't latency-critical.
+        run: make build.all
         env:
           # We're using docker buildx, which doesn't actually load the images it
           # builds by default. Specifying --load does so.

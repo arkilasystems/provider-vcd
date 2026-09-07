@@ -10,7 +10,7 @@ Vcd API.
 Install the provider by using the following command after changing the image tag
 to the [latest release](https://marketplace.upbound.io/providers/arkilasystems/provider-vcd):
 ```
-up ctp provider install arkilasystems/provider-vcd:v0.1.0
+up ctp provider install xpkg.upbound.io/arkilasystems/provider-vcd:v0.1.0
 ```
 
 Alternatively, you can use declarative installation:
@@ -21,11 +21,9 @@ kind: Provider
 metadata:
   name: provider-vcd
 spec:
-  package: arkilasystems/provider-vcd:v0.1.0
+  package: xpkg.upbound.io/arkilasystems/provider-vcd:v0.1.0
 EOF
 ```
-
-Notice that in this example Provider resource is referencing ControllerConfig with debug enabled.
 
 You can see the API reference [here](https://doc.crds.dev/github.com/arkilasystems/provider-vcd).
 

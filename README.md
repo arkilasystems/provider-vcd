@@ -57,6 +57,23 @@ See [`examples/`](examples/) for a cluster-scoped and `*-namespaced.yaml` exampl
 supported resource, and [`examples/providerconfig/`](examples/providerconfig/) for
 `ProviderConfig`, `ClusterProviderConfig`, and a namespaced `ProviderConfig` example.
 
+### Crossplane version compatibility
+
+`provider-vcd` requires Crossplane `v1.20` or later (`package/crossplane.yaml` declares
+`spec.crossplane.version: ">=v1.20.0-0"`). It also declares the `SafeStart` capability, so it defers
+starting each resource's controller until that resource's CRD is actually available — this avoids
+crash-looping while the package is still installing, and degrades gracefully (no `SafeStart`
+behavior, but no crash either) on Crossplane versions or RBAC setups that don't support watching
+CRDs, which is exactly what happens on Crossplane v1.
+
+Crossplane v2 additionally wraps every provider's CRDs in a
+[Managed Resource Definition (MRD)](https://docs.crossplane.io/latest/managed-resources/managed-resource-definitions/).
+Providers with `SafeStart` install their MRDs as `Inactive` by default; the standard Crossplane
+Helm chart creates a wildcard `ManagedResourceActivationPolicy` that activates everything
+out of the box, so this is usually transparent. If your cluster uses a customized/restrictive
+activation policy, you may need to explicitly activate `provider-vcd`'s resources — see
+[Managed Resource Activation Policies](https://docs.crossplane.io/latest/managed-resources/managed-resource-activation-policies/).
+
 ## Developing
 
 Run code-generation pipeline:

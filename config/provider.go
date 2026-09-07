@@ -91,7 +91,6 @@ func GetProvider() *ujconfig.Provider {
 		// an empty package.
 		ujconfig.WithBasePackages(ujconfig.BasePackages{
 			APIVersion:    []string{"v1beta1"},
-			Controller:    ujconfig.DefaultBasePackages.Controller,
 			ControllerMap: ujconfig.DefaultBasePackages.ControllerMap,
 		}))
 
@@ -146,7 +145,6 @@ func GetProviderNamespaced() *ujconfig.Provider {
 		// See the matching comment in GetProvider: no v1alpha1 API package.
 		ujconfig.WithBasePackages(ujconfig.BasePackages{
 			APIVersion:    []string{"v1beta1"},
-			Controller:    ujconfig.DefaultBasePackages.Controller,
 			ControllerMap: ujconfig.DefaultBasePackages.ControllerMap,
 		}))
 

@@ -17,3 +17,8 @@ metadata:
       the
       [arkilasystems/provider-vcd](https://github.com/arkilasystems/provider-vcd)
       repo.
+spec:
+  crossplane:
+    version: ">=v1.20.0-0"
+  capabilities:
+    - SafeStart

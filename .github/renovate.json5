@@ -1,7 +1,7 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
   "extends": [
-    "config:base"
+    "config:recommended"
   ],
 // The maximum number of PRs to be created in parallel
   "prConcurrentLimit": 5,
@@ -14,25 +14,19 @@
   "semanticCommits": "disabled",
 // All PRs should have a label
   "labels": ["automated"],
+  // Go version is now driven by `go-version-file: go.mod` in every workflow
+  // (see ci.yml), so Renovate's native `gomod` manager already keeps it
+  // current - no custom regex manager needed for that anymore.
   "regexManagers": [
     {
-// We want a PR to bump Go versions used through env variables in any Github
-// Actions, taking it from the official Github repository.
-      "fileMatch": ["^\\.github\\/workflows\\/[^/]+\\.ya?ml$"],
-      "matchStrings": [
-        "GO_VERSION: '(?<currentValue>.*?)'\\n"
-      ],
-      "datasourceVcd": "golang-version",
-      "depNameVcd": "golang"
-    }, {
 // We want a PR to bump golangci-lint versions used through env variables in
 // any Github Actions, taking it from the official Github repository tags.
       "fileMatch": ["^\\.github\\/workflows\\/[^/]+\\.ya?ml$"],
       "matchStrings": [
         "GOLANGCI_VERSION: '(?<currentValue>.*?)'\\n"
       ],
-      "datasourceVcd": "github-tags",
-      "depNameVcd": "golangci/golangci-lint"
+      "datasourceTemplate": "github-tags",
+      "depNameTemplate": "golangci/golangci-lint"
     }
   ],
 // PackageRules disabled below should be enabled in case of vulnerabilities

@@ -2159,6 +2159,7 @@ resources:
                   "name": "uplink"
                 }
               references:
+                associated_interface_ids: data.vcd_nsxt_tier0_interface.one.id
                 external_network_id: vcd_external_network_v2.provider-gateway.id
                 ip_space_id: vcd_ip_space.space1.id
         argumentDocs:
@@ -2458,6 +2459,7 @@ resources:
                 }
               references:
                 app_profile_id: vcd_lb_app_profile.http.id
+                app_rule_ids: vcd_lb_app_rule.redirect.id
                 server_pool_id: vcd_lb_server_pool.web-servers.id
             - name: http
               manifest: |-
@@ -2477,6 +2479,7 @@ resources:
                 }
               references:
                 app_profile_id: vcd_lb_app_profile.http.id
+                app_rule_ids: vcd_lb_app_rule.redirect.id
                 edge_gateway: var.edge_gateway
                 ip_address: data.vcd_edgegateway.mygw.default_external_network_ip
                 org: var.org
@@ -3579,6 +3582,7 @@ resources:
                   "org": "sample"
                 }
               references:
+                ca_certificate_ids: data.vcd_library_certificate.sample-cert.id
                 edge_gateway_id: vcd_nsxt_alb_settings.test.edge_gateway_id
         argumentDocs:
             APP_COOKIE: '- Load Balancer reads existing server cookies or URI embedded data such as JSessionID. Cookie name must be provided as value'
@@ -4733,6 +4737,9 @@ resources:
                   "vdc_group_id": "${vcd_vdc_group.existing.id}"
                 }
               references:
+                rule.app_port_profile_ids: data.vcd_nsxt_app_port_profile.WINS.id
+                rule.network_context_profile_ids: vcd_nsxt_network_context_profile.cp1.id
+                rule.source_ids: data.vcd_nsxt_ip_set.set1.id
                 vdc_group_id: vcd_vdc_group.existing.id
         argumentDocs:
             org: |-
@@ -4796,6 +4803,9 @@ resources:
                   "vdc_group_id": "${data.vcd_vdc_group.test1.id}"
                 }
               references:
+                app_port_profile_ids: data.vcd_nsxt_app_port_profile.FTP.id
+                destination_ids: vcd_nsxt_security_group.g1-empty.id
+                source_ids: vcd_nsxt_ip_set.set1.id
                 vdc_group_id: data.vcd_vdc_group.test1.id
             - name: r2
               manifest: |-
@@ -5938,6 +5948,9 @@ resources:
                 }
               references:
                 edge_gateway_id: data.vcd_nsxt_edgegateway.testing.id
+                rule.app_port_profile_ids: data.vcd_nsxt_app_port_profile.ssh.id
+                rule.destination_ids: vcd_nsxt_security_group.group2.id
+                rule.source_ids: vcd_nsxt_security_group.group.1.id
         argumentDocs:
             action: '- (Required) Defines if it should ALLOW, DROP or REJECT traffic'
             app_port_profile_ids: '- (Optional) A set of Application Port Profiles. Leaving it empty matches Any (all)'
@@ -6768,6 +6781,7 @@ resources:
                 }
               references:
                 edge_gateway_id: data.vcd_nsxt_edgegateway.main.id
+                member_org_network_ids: vcd_network_routed_v2.frontend.id
             - name: group1
               manifest: |-
                 {
@@ -6896,6 +6910,7 @@ resources:
                   "vdc": "my-org-vdc"
                 }
               references:
+                ip_sets: vcd_nsxv_ip_set.myset1.name
                 relay_agent.network_name: vcd_network_routed.db-network.name
               dependencies:
                 vcd_nsxv_ip_set.myset1: |-
@@ -7203,6 +7218,8 @@ resources:
                   ],
                   "vdc": "my-vdc"
                 }
+              references:
+                source.ip_sets: vcd_ipset.test-ipset2.name
             - name: my-rule-1
               manifest: |-
                 {
@@ -7777,6 +7794,8 @@ resources:
                     }
                   ]
                 }
+              references:
+                lifecycle.ignore_changes: custom_settings[0].password
             - name: my-org-ldap
               manifest: |-
                 {
@@ -8291,6 +8310,7 @@ resources:
                 }
               references:
                 default_compute_policy_id: vcd_vm_sizing_policy.size_1.id
+                vm_sizing_policy_ids: vcd_vm_sizing_policy.size_1.id
               dependencies:
                 vcd_vm_sizing_policy.size_1: |-
                     {
@@ -8342,6 +8362,7 @@ resources:
                 }
               references:
                 default_compute_policy_id: data.vcd_vm_placement_policy.existing-policy.id
+                vm_placement_policy_ids: data.vcd_vm_placement_policy.existing-policy.id
               dependencies:
                 vcd_vm_placement_policy.new-placement-policy: |-
                     {
@@ -8589,6 +8610,7 @@ resources:
                 network_pool_id: data.vcd_network_pool.np1.id
                 provider_vdc.external_network_id: data.vcd_external_network_v2.ext_net.id
                 provider_vdc.id: data.vcd_provider_vdc.pvdc2.id
+                readable_by_org_ids: data.vcd_org.org.id
             - name: an_existing_vdc_template
               manifest: '{}'
         argumentDocs:
@@ -8745,7 +8767,9 @@ resources:
                 }
               references:
                 highest_supported_hardware_version: data.vcd_resource_pool.rp1.hardware_version
+                network_pool_ids: data.vcd_network_pool.np1.id
                 nsxt_manager_id: data.vcd_nsxt_manager.mgr1.id
+                resource_pool_ids: data.vcd_resource_pool.rp1.id
                 vcenter_id: data.vcd_vcenter.vcenter1.id
             - name: pvdc1
               manifest: |-
@@ -8769,7 +8793,9 @@ resources:
                 }
               references:
                 highest_supported_hardware_version: data.vcd_resource_pool.rp2.hardware_version
+                network_pool_ids: data.vcd_network_pool.np1.id
                 nsxt_manager_id: data.vcd_nsxt_manager.mgr1.id
+                resource_pool_ids: data.vcd_resource_pool.rp1.id
                 vcenter_id: data.vcd_vcenter.vcenter1.id
         argumentDocs:
             allocation: '- Allocated CPU/Memory for this Provider VDC.'
@@ -9077,6 +9103,8 @@ resources:
                   "vendor": "vmware",
                   "version": "4.5.6"
                 }
+              references:
+                interface_ids: data.vcd_rde_interface.my_interface.id
             - name: my_rde_type
               manifest: |-
                 {
@@ -9089,6 +9117,8 @@ resources:
                   "vendor": "vmware",
                   "version": "4.5.6"
                 }
+              references:
+                interface_ids: data.vcd_rde_interface.my_interface.id
             - name: my_rde_type
               manifest: |-
                 {
@@ -9104,6 +9134,8 @@ resources:
                   "vendor": "vmware",
                   "version": "4.5.6"
                 }
+              references:
+                interface_ids: data.vcd_rde_interface.my_interface.id
               dependencies:
                 vcd_rde_interface_behavior.my_behavior: |-
                     {
@@ -9135,6 +9167,7 @@ resources:
                 }
               references:
                 hook.behavior_id: vcd_rde_interface_behavior.my_behavior.id
+                interface_ids: data.vcd_rde_interface.my_interface.id
               dependencies:
                 vcd_rde_interface_behavior.my_behavior: |-
                     {
@@ -9530,6 +9563,8 @@ resources:
                     "${vcd_vm.my-vm-two.id}"
                   ]
                 }
+              references:
+                vm_ids: vcd_vm.my-vm-one.id
         argumentDocs:
             name: '- (Required) The name of the security tag.'
             org: '- (Optional) The name of organization to use, optional if defined at provider level. Useful when connected as sysadmin working across different organisations'
@@ -9706,6 +9741,7 @@ resources:
                 }
               references:
                 add_on_instance_id: vcd_solution_add_on_instance.dse14.id
+                org_ids: data.vcd_org.recipient.id
               dependencies:
                 vcd_solution_add_on.dse14: |-
                     {
@@ -11414,6 +11450,7 @@ resources:
                   "starting_vdc_id": "${data.vcd_org_vdc.startVdc.id}"
                 }
               references:
+                participating_vdc_ids: data.vcd_org_vdc.startVdc.id
                 starting_vdc_id: data.vcd_org_vdc.startVdc.id
         argumentDocs:
             default_policy_status: '- (Optional) Whether this security policy is enabled. dfw_enabled must be true.'
@@ -11511,6 +11548,8 @@ resources:
                     "${data.vcd_vapp_vm.Test_EmptyVm1c.id}"
                   ]
                 }
+              references:
+                vm_ids: data.vcd_vapp_vm.Test_EmptyVm1a.id
             - name: tf-myar
               manifest: '{}'
         argumentDocs:
@@ -11607,6 +11646,7 @@ resources:
                 }
               references:
                 provider_vdc_id: data.vcd_provider_vdc.pvdc.id
+                vm_group_ids: data.vcd_vm_group.vm-group.id
         argumentDocs:
             description: '- (Optional) description of VM Placement Policy.'
             logical_vm_group_ids: '- (Optional) IDs of one or more Logical VM Groups to define this VM Placement policy. There is an AND relationship among all the entries set in this attribute. Note: Either vm_group_ids or logical_vm_group_ids must be set.'

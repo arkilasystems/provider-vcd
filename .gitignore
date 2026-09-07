@@ -4,8 +4,10 @@
 cover.out
 /vendor
 /.vendor-new
+/plans
 .DS_Store
 
 # ignore IDE folders
 .vscode/
 .idea/
+CLAUDE.md

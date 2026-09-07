@@ -1,0 +1,22 @@
+apiVersion: vcd.m.upbound.io/v1alpha1
+kind: OrgSaml
+metadata:
+  annotations:
+    meta.upbound.io/example-id: vcd/v1alpha1/orgsaml
+  labels:
+    testing.upbound.io/example-name: my-org-saml
+  name: my-org-saml
+  namespace: crossplane-system
+spec:
+  forProvider:
+    email: email
+    enabled: true
+    entityId: my-entity
+    firstname: fname
+    fullname: fullname
+    group: group
+    identityProviderMetadataFile: idp-metadata.xml
+    orgId: ${data.vcd_org.my-org.id}
+    role: role
+    surname: lname
+    username: uname

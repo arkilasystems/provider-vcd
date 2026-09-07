@@ -1,0 +1,22 @@
+apiVersion: vcd.upbound.io/v1alpha1
+kind: LbVirtualServer
+metadata:
+  annotations:
+    meta.upbound.io/example-id: vcd/v1alpha1/lbvirtualserver
+  labels:
+    testing.upbound.io/example-name: http
+  name: http
+spec:
+  forProvider:
+    appProfileId: ${vcd_lb_app_profile.http.id}
+    appRuleIds:
+    - ${vcd_lb_app_rule.redirect.id}
+    - ${vcd_lb_app_rule.language.id}
+    edgeGateway: my-edge-gw
+    ipAddress: 1.1.1.1
+    name: http-virtual-server
+    org: my-org
+    port: 80
+    protocol: http
+    serverPoolId: ${vcd_lb_server_pool.web-servers.id}
+    vdc: my-org-vdc

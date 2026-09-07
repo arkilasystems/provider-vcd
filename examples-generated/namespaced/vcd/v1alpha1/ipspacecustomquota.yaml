@@ -1,0 +1,19 @@
+apiVersion: vcd.m.upbound.io/v1alpha1
+kind: IpSpaceCustomQuota
+metadata:
+  annotations:
+    meta.upbound.io/example-id: vcd/v1alpha1/ipspacecustomquota
+  labels:
+    testing.upbound.io/example-name: q1
+  name: q1
+  namespace: crossplane-system
+spec:
+  forProvider:
+    ipPrefixQuota:
+    - prefixLength: 29
+      quota: 17
+    - prefixLength: 30
+      quota: 15
+    ipRangeQuota: 23
+    ipSpaceId: ${vcd_ip_space.space1.id}
+    orgId: ${data.vcd_org.org1.id}

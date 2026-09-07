@@ -56,7 +56,7 @@ func setupCluster(mgr ctrl.Manager, o controller.Options) error {
 		Watches(&v1beta1.ProviderConfigUsage{}, &resource.EnqueueRequestForProviderConfig{}).
 		Complete(providerconfig.NewReconciler(mgr, of,
 			providerconfig.WithLogger(o.Logger.WithValues("controller", name)),
-			providerconfig.WithRecorder(event.NewAPIRecorder(mgr.GetEventRecorderFor(name)))))
+			providerconfig.WithRecorder(event.NewAPIRecorder(mgr.GetEventRecorderFor(name))))) //nolint:staticcheck // event.NewAPIRecorder only accepts the old record.EventRecorder API; no replacement constructor exists in crossplane-runtime yet
 }
 
 // setupNamespaced adds a controller that reconciles ProviderConfigs by
@@ -77,7 +77,7 @@ func setupNamespaced(mgr ctrl.Manager, o controller.Options) error {
 		Watches(&v1beta1.ProviderConfigUsage{}, &resource.EnqueueRequestForProviderConfig{}).
 		Complete(providerconfig.NewReconciler(mgr, of,
 			providerconfig.WithLogger(o.Logger.WithValues("controller", name)),
-			providerconfig.WithRecorder(event.NewAPIRecorder(mgr.GetEventRecorderFor(name)))))
+			providerconfig.WithRecorder(event.NewAPIRecorder(mgr.GetEventRecorderFor(name))))) //nolint:staticcheck // event.NewAPIRecorder only accepts the old record.EventRecorder API; no replacement constructor exists in crossplane-runtime yet
 }
 
 // SetupGated adds controllers that reconcile ProviderConfigs and

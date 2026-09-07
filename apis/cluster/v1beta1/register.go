@@ -22,6 +22,9 @@ var (
 	SchemeGroupVersion = schema.GroupVersion{Group: Group, Version: Version}
 
 	// SchemeBuilder is used to add go types to the GroupVersionKind scheme
+	//nolint:staticcheck // scheme.Builder is deprecated but this matches the
+	// pattern upjet's own generator uses throughout this codebase's
+	// generated apis/*/vcd/v1alpha1/zz_groupversion_info.go files.
 	SchemeBuilder = &scheme.Builder{GroupVersion: SchemeGroupVersion}
 )
 

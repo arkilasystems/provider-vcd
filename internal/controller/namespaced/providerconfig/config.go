@@ -45,6 +45,7 @@ func setupCluster(mgr ctrl.Manager, o controller.Options) error {
 
 	of := resource.ProviderConfigKinds{
 		Config:    v1beta1.ClusterProviderConfigGroupVersionKind,
+		Usage:     v1beta1.ProviderConfigUsageGroupVersionKind,
 		UsageList: v1beta1.ProviderConfigUsageListGroupVersionKind,
 	}
 
@@ -65,6 +66,7 @@ func setupNamespaced(mgr ctrl.Manager, o controller.Options) error {
 
 	of := resource.ProviderConfigKinds{
 		Config:    v1beta1.ProviderConfigGroupVersionKind,
+		Usage:     v1beta1.ProviderConfigUsageGroupVersionKind,
 		UsageList: v1beta1.ProviderConfigUsageListGroupVersionKind,
 	}
 

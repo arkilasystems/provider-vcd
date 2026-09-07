@@ -10,7 +10,7 @@ import (
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/runtime/schema"
 
-	v1 "github.com/crossplane/crossplane/apis/v2/core/v2"
+	v2 "github.com/crossplane/crossplane/apis/v2/core/v2"
 )
 
 type AppPortInitParameters struct {
@@ -171,8 +171,8 @@ type NsxtAppPortProfileParameters struct {
 
 // NsxtAppPortProfileSpec defines the desired state of NsxtAppPortProfile
 type NsxtAppPortProfileSpec struct {
-	v1.ResourceSpec `json:",inline"`
-	ForProvider     NsxtAppPortProfileParameters `json:"forProvider"`
+	v2.ClusterManagedResourceSpec `json:",inline"`
+	ForProvider                   NsxtAppPortProfileParameters `json:"forProvider"`
 	// THIS IS A BETA FIELD. It will be honored
 	// unless the Management Policies feature flag is disabled.
 	// InitProvider holds the same fields as ForProvider, with the exception
@@ -188,8 +188,8 @@ type NsxtAppPortProfileSpec struct {
 
 // NsxtAppPortProfileStatus defines the observed state of NsxtAppPortProfile.
 type NsxtAppPortProfileStatus struct {
-	v1.ResourceStatus `json:",inline"`
-	AtProvider        NsxtAppPortProfileObservation `json:"atProvider,omitempty"`
+	v2.ManagedResourceStatus `json:",inline"`
+	AtProvider               NsxtAppPortProfileObservation `json:"atProvider,omitempty"`
 }
 
 // +kubebuilder:object:root=true

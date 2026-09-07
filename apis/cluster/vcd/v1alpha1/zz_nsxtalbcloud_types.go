@@ -10,7 +10,7 @@ import (
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/runtime/schema"
 
-	v1 "github.com/crossplane/crossplane/apis/v2/core/v2"
+	v2 "github.com/crossplane/crossplane/apis/v2/core/v2"
 )
 
 type NsxtAlbCloudInitParameters struct {
@@ -109,8 +109,8 @@ type NsxtAlbCloudParameters struct {
 
 // NsxtAlbCloudSpec defines the desired state of NsxtAlbCloud
 type NsxtAlbCloudSpec struct {
-	v1.ResourceSpec `json:",inline"`
-	ForProvider     NsxtAlbCloudParameters `json:"forProvider"`
+	v2.ClusterManagedResourceSpec `json:",inline"`
+	ForProvider                   NsxtAlbCloudParameters `json:"forProvider"`
 	// THIS IS A BETA FIELD. It will be honored
 	// unless the Management Policies feature flag is disabled.
 	// InitProvider holds the same fields as ForProvider, with the exception
@@ -126,8 +126,8 @@ type NsxtAlbCloudSpec struct {
 
 // NsxtAlbCloudStatus defines the observed state of NsxtAlbCloud.
 type NsxtAlbCloudStatus struct {
-	v1.ResourceStatus `json:",inline"`
-	AtProvider        NsxtAlbCloudObservation `json:"atProvider,omitempty"`
+	v2.ManagedResourceStatus `json:",inline"`
+	AtProvider               NsxtAlbCloudObservation `json:"atProvider,omitempty"`
 }
 
 // +kubebuilder:object:root=true

@@ -1,0 +1,19 @@
+apiVersion: vcd.m.upbound.io/v1alpha1
+kind: NsxtAlbController
+metadata:
+  annotations:
+    meta.upbound.io/example-id: vcd/v1alpha1/nsxtalbcontroller
+  labels:
+    testing.upbound.io/example-name: first
+  name: first
+  namespace: crossplane-system
+spec:
+  forProvider:
+    description: first alb controller
+    licenseType: ENTERPRISE
+    name: aviController1
+    passwordSecretRef:
+      key: example-key
+      name: example-secret
+    url: https://my.controller
+    username: admin

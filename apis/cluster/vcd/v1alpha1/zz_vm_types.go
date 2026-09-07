@@ -10,7 +10,7 @@ import (
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/runtime/schema"
 
-	v1 "github.com/crossplane/crossplane/apis/v2/core/v2"
+	v2 "github.com/crossplane/crossplane/apis/v2/core/v2"
 )
 
 type VmBootOptionsInitParameters struct {
@@ -75,7 +75,7 @@ type VmBootOptionsParameters struct {
 type VmCustomizationInitParameters struct {
 
 	// Manually specify admin password
-	AdminPasswordSecretRef *v1.SecretKeySelector `json:"adminPasswordSecretRef,omitempty" tf:"-"`
+	AdminPasswordSecretRef *v2.SecretKeySelector `json:"adminPasswordSecretRef,omitempty" tf:"-"`
 
 	// Allow local administrator password
 	AllowLocalAdminPassword *bool `json:"allowLocalAdminPassword,omitempty" tf:"allow_local_admin_password,omitempty"`
@@ -105,7 +105,7 @@ type VmCustomizationInitParameters struct {
 	JoinDomainName *string `json:"joinDomainName,omitempty" tf:"join_domain_name,omitempty"`
 
 	// Password for custom domain name join
-	JoinDomainPasswordSecretRef *v1.SecretKeySelector `json:"joinDomainPasswordSecretRef,omitempty" tf:"-"`
+	JoinDomainPasswordSecretRef *v2.SecretKeySelector `json:"joinDomainPasswordSecretRef,omitempty" tf:"-"`
 
 	// Username for custom domain name join
 	JoinDomainUser *string `json:"joinDomainUser,omitempty" tf:"join_domain_user,omitempty"`
@@ -166,7 +166,7 @@ type VmCustomizationParameters struct {
 
 	// Manually specify admin password
 	// +kubebuilder:validation:Optional
-	AdminPasswordSecretRef *v1.SecretKeySelector `json:"adminPasswordSecretRef,omitempty" tf:"-"`
+	AdminPasswordSecretRef *v2.SecretKeySelector `json:"adminPasswordSecretRef,omitempty" tf:"-"`
 
 	// Allow local administrator password
 	// +kubebuilder:validation:Optional
@@ -206,7 +206,7 @@ type VmCustomizationParameters struct {
 
 	// Password for custom domain name join
 	// +kubebuilder:validation:Optional
-	JoinDomainPasswordSecretRef *v1.SecretKeySelector `json:"joinDomainPasswordSecretRef,omitempty" tf:"-"`
+	JoinDomainPasswordSecretRef *v2.SecretKeySelector `json:"joinDomainPasswordSecretRef,omitempty" tf:"-"`
 
 	// Username for custom domain name join
 	// +kubebuilder:validation:Optional
@@ -1105,8 +1105,8 @@ type VmSetExtraConfigParameters struct {
 
 // VmSpec defines the desired state of Vm
 type VmSpec struct {
-	v1.ResourceSpec `json:",inline"`
-	ForProvider     VmParameters `json:"forProvider"`
+	v2.ClusterManagedResourceSpec `json:",inline"`
+	ForProvider                   VmParameters `json:"forProvider"`
 	// THIS IS A BETA FIELD. It will be honored
 	// unless the Management Policies feature flag is disabled.
 	// InitProvider holds the same fields as ForProvider, with the exception
@@ -1122,8 +1122,8 @@ type VmSpec struct {
 
 // VmStatus defines the observed state of Vm.
 type VmStatus struct {
-	v1.ResourceStatus `json:",inline"`
-	AtProvider        VmObservation `json:"atProvider,omitempty"`
+	v2.ManagedResourceStatus `json:",inline"`
+	AtProvider               VmObservation `json:"atProvider,omitempty"`
 }
 
 // +kubebuilder:object:root=true

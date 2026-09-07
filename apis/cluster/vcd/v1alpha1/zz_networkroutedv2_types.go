@@ -10,7 +10,7 @@ import (
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/runtime/schema"
 
-	v1 "github.com/crossplane/crossplane/apis/v2/core/v2"
+	v2 "github.com/crossplane/crossplane/apis/v2/core/v2"
 )
 
 type NetworkRoutedV2InitParameters struct {
@@ -484,8 +484,8 @@ type NetworkRoutedV2StaticIPPoolParameters struct {
 
 // NetworkRoutedV2Spec defines the desired state of NetworkRoutedV2
 type NetworkRoutedV2Spec struct {
-	v1.ResourceSpec `json:",inline"`
-	ForProvider     NetworkRoutedV2Parameters `json:"forProvider"`
+	v2.ClusterManagedResourceSpec `json:",inline"`
+	ForProvider                   NetworkRoutedV2Parameters `json:"forProvider"`
 	// THIS IS A BETA FIELD. It will be honored
 	// unless the Management Policies feature flag is disabled.
 	// InitProvider holds the same fields as ForProvider, with the exception
@@ -501,8 +501,8 @@ type NetworkRoutedV2Spec struct {
 
 // NetworkRoutedV2Status defines the observed state of NetworkRoutedV2.
 type NetworkRoutedV2Status struct {
-	v1.ResourceStatus `json:",inline"`
-	AtProvider        NetworkRoutedV2Observation `json:"atProvider,omitempty"`
+	v2.ManagedResourceStatus `json:",inline"`
+	AtProvider               NetworkRoutedV2Observation `json:"atProvider,omitempty"`
 }
 
 // +kubebuilder:object:root=true

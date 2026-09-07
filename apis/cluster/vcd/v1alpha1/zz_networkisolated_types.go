@@ -10,7 +10,7 @@ import (
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/runtime/schema"
 
-	v1 "github.com/crossplane/crossplane/apis/v2/core/v2"
+	v2 "github.com/crossplane/crossplane/apis/v2/core/v2"
 )
 
 type DHCPPoolInitParameters struct {
@@ -396,8 +396,8 @@ type NetworkIsolatedStaticIPPoolParameters struct {
 
 // NetworkIsolatedSpec defines the desired state of NetworkIsolated
 type NetworkIsolatedSpec struct {
-	v1.ResourceSpec `json:",inline"`
-	ForProvider     NetworkIsolatedParameters `json:"forProvider"`
+	v2.ClusterManagedResourceSpec `json:",inline"`
+	ForProvider                   NetworkIsolatedParameters `json:"forProvider"`
 	// THIS IS A BETA FIELD. It will be honored
 	// unless the Management Policies feature flag is disabled.
 	// InitProvider holds the same fields as ForProvider, with the exception
@@ -413,8 +413,8 @@ type NetworkIsolatedSpec struct {
 
 // NetworkIsolatedStatus defines the observed state of NetworkIsolated.
 type NetworkIsolatedStatus struct {
-	v1.ResourceStatus `json:",inline"`
-	AtProvider        NetworkIsolatedObservation `json:"atProvider,omitempty"`
+	v2.ManagedResourceStatus `json:",inline"`
+	AtProvider               NetworkIsolatedObservation `json:"atProvider,omitempty"`
 }
 
 // +kubebuilder:object:root=true

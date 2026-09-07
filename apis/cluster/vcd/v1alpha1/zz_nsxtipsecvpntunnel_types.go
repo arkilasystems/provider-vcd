@@ -10,7 +10,7 @@ import (
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/runtime/schema"
 
-	v1 "github.com/crossplane/crossplane/apis/v2/core/v2"
+	v2 "github.com/crossplane/crossplane/apis/v2/core/v2"
 )
 
 type NsxtIpsecVpnTunnelInitParameters struct {
@@ -69,7 +69,7 @@ type NsxtIpsecVpnTunnelInitParameters struct {
 	// Pre-shared key for negotiation. Note the pre-shared key must be
 	// the same on the other end of the IPSec VPN tunnel and authentication_mode must be PSK
 	// Pre-Shared Key (PSK)
-	PreSharedKeySecretRef v1.SecretKeySelector `json:"preSharedKeySecretRef" tf:"-"`
+	PreSharedKeySecretRef v2.SecretKeySelector `json:"preSharedKeySecretRef" tf:"-"`
 
 	// Remote ID uniquely identifies the peer site. If the remote ID is
 	// not set, it will default to the remote IP address
@@ -256,7 +256,7 @@ type NsxtIpsecVpnTunnelParameters struct {
 	// the same on the other end of the IPSec VPN tunnel and authentication_mode must be PSK
 	// Pre-Shared Key (PSK)
 	// +kubebuilder:validation:Optional
-	PreSharedKeySecretRef v1.SecretKeySelector `json:"preSharedKeySecretRef" tf:"-"`
+	PreSharedKeySecretRef v2.SecretKeySelector `json:"preSharedKeySecretRef" tf:"-"`
 
 	// Remote ID uniquely identifies the peer site. If the remote ID is
 	// not set, it will default to the remote IP address
@@ -498,8 +498,8 @@ type SecurityProfileCustomizationParameters struct {
 
 // NsxtIpsecVpnTunnelSpec defines the desired state of NsxtIpsecVpnTunnel
 type NsxtIpsecVpnTunnelSpec struct {
-	v1.ResourceSpec `json:",inline"`
-	ForProvider     NsxtIpsecVpnTunnelParameters `json:"forProvider"`
+	v2.ClusterManagedResourceSpec `json:",inline"`
+	ForProvider                   NsxtIpsecVpnTunnelParameters `json:"forProvider"`
 	// THIS IS A BETA FIELD. It will be honored
 	// unless the Management Policies feature flag is disabled.
 	// InitProvider holds the same fields as ForProvider, with the exception
@@ -515,8 +515,8 @@ type NsxtIpsecVpnTunnelSpec struct {
 
 // NsxtIpsecVpnTunnelStatus defines the observed state of NsxtIpsecVpnTunnel.
 type NsxtIpsecVpnTunnelStatus struct {
-	v1.ResourceStatus `json:",inline"`
-	AtProvider        NsxtIpsecVpnTunnelObservation `json:"atProvider,omitempty"`
+	v2.ManagedResourceStatus `json:",inline"`
+	AtProvider               NsxtIpsecVpnTunnelObservation `json:"atProvider,omitempty"`
 }
 
 // +kubebuilder:object:root=true

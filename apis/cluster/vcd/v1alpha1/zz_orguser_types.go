@@ -10,7 +10,7 @@ import (
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/runtime/schema"
 
-	v1 "github.com/crossplane/crossplane/apis/v2/core/v2"
+	v2 "github.com/crossplane/crossplane/apis/v2/core/v2"
 )
 
 type OrgUserInitParameters struct {
@@ -71,7 +71,7 @@ type OrgUserInitParameters struct {
 	// The user password. This value is never returned
 	// on read. It is inspected on create and modify. To modify, fill with a different value.
 	// The user's password. This value is never returned on read. Either "password" or "password_file" must be included on creation unless is_external is true.
-	PasswordSecretRef *v1.SecretKeySelector `json:"passwordSecretRef,omitempty" tf:"-"`
+	PasswordSecretRef *v2.SecretKeySelector `json:"passwordSecretRef,omitempty" tf:"-"`
 
 	// Identity provider type for this user. One of: INTEGRATED, SAML, OAUTH. The default
 	// is INTEGRATED.
@@ -256,7 +256,7 @@ type OrgUserParameters struct {
 	// on read. It is inspected on create and modify. To modify, fill with a different value.
 	// The user's password. This value is never returned on read. Either "password" or "password_file" must be included on creation unless is_external is true.
 	// +kubebuilder:validation:Optional
-	PasswordSecretRef *v1.SecretKeySelector `json:"passwordSecretRef,omitempty" tf:"-"`
+	PasswordSecretRef *v2.SecretKeySelector `json:"passwordSecretRef,omitempty" tf:"-"`
 
 	// Identity provider type for this user. One of: INTEGRATED, SAML, OAUTH. The default
 	// is INTEGRATED.
@@ -289,8 +289,8 @@ type OrgUserParameters struct {
 
 // OrgUserSpec defines the desired state of OrgUser
 type OrgUserSpec struct {
-	v1.ResourceSpec `json:",inline"`
-	ForProvider     OrgUserParameters `json:"forProvider"`
+	v2.ClusterManagedResourceSpec `json:",inline"`
+	ForProvider                   OrgUserParameters `json:"forProvider"`
 	// THIS IS A BETA FIELD. It will be honored
 	// unless the Management Policies feature flag is disabled.
 	// InitProvider holds the same fields as ForProvider, with the exception
@@ -306,8 +306,8 @@ type OrgUserSpec struct {
 
 // OrgUserStatus defines the observed state of OrgUser.
 type OrgUserStatus struct {
-	v1.ResourceStatus `json:",inline"`
-	AtProvider        OrgUserObservation `json:"atProvider,omitempty"`
+	v2.ManagedResourceStatus `json:",inline"`
+	AtProvider               OrgUserObservation `json:"atProvider,omitempty"`
 }
 
 // +kubebuilder:object:root=true

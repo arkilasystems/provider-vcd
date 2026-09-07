@@ -10,7 +10,7 @@ import (
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/runtime/schema"
 
-	v1 "github.com/crossplane/crossplane/apis/v2/core/v2"
+	v2 "github.com/crossplane/crossplane/apis/v2/core/v2"
 )
 
 type LbVirtualServerInitParameters struct {
@@ -237,8 +237,8 @@ type LbVirtualServerParameters struct {
 
 // LbVirtualServerSpec defines the desired state of LbVirtualServer
 type LbVirtualServerSpec struct {
-	v1.ResourceSpec `json:",inline"`
-	ForProvider     LbVirtualServerParameters `json:"forProvider"`
+	v2.ClusterManagedResourceSpec `json:",inline"`
+	ForProvider                   LbVirtualServerParameters `json:"forProvider"`
 	// THIS IS A BETA FIELD. It will be honored
 	// unless the Management Policies feature flag is disabled.
 	// InitProvider holds the same fields as ForProvider, with the exception
@@ -254,8 +254,8 @@ type LbVirtualServerSpec struct {
 
 // LbVirtualServerStatus defines the observed state of LbVirtualServer.
 type LbVirtualServerStatus struct {
-	v1.ResourceStatus `json:",inline"`
-	AtProvider        LbVirtualServerObservation `json:"atProvider,omitempty"`
+	v2.ManagedResourceStatus `json:",inline"`
+	AtProvider               LbVirtualServerObservation `json:"atProvider,omitempty"`
 }
 
 // +kubebuilder:object:root=true

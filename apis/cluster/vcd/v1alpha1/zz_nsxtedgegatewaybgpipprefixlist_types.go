@@ -10,7 +10,7 @@ import (
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/runtime/schema"
 
-	v1 "github.com/crossplane/crossplane/apis/v2/core/v2"
+	v2 "github.com/crossplane/crossplane/apis/v2/core/v2"
 )
 
 type NsxtEdgeGatewayBgpIpPrefixListIPPrefixInitParameters struct {
@@ -176,8 +176,8 @@ type NsxtEdgeGatewayBgpIpPrefixListParameters struct {
 
 // NsxtEdgeGatewayBgpIpPrefixListSpec defines the desired state of NsxtEdgeGatewayBgpIpPrefixList
 type NsxtEdgeGatewayBgpIpPrefixListSpec struct {
-	v1.ResourceSpec `json:",inline"`
-	ForProvider     NsxtEdgeGatewayBgpIpPrefixListParameters `json:"forProvider"`
+	v2.ClusterManagedResourceSpec `json:",inline"`
+	ForProvider                   NsxtEdgeGatewayBgpIpPrefixListParameters `json:"forProvider"`
 	// THIS IS A BETA FIELD. It will be honored
 	// unless the Management Policies feature flag is disabled.
 	// InitProvider holds the same fields as ForProvider, with the exception
@@ -193,8 +193,8 @@ type NsxtEdgeGatewayBgpIpPrefixListSpec struct {
 
 // NsxtEdgeGatewayBgpIpPrefixListStatus defines the observed state of NsxtEdgeGatewayBgpIpPrefixList.
 type NsxtEdgeGatewayBgpIpPrefixListStatus struct {
-	v1.ResourceStatus `json:",inline"`
-	AtProvider        NsxtEdgeGatewayBgpIpPrefixListObservation `json:"atProvider,omitempty"`
+	v2.ManagedResourceStatus `json:",inline"`
+	AtProvider               NsxtEdgeGatewayBgpIpPrefixListObservation `json:"atProvider,omitempty"`
 }
 
 // +kubebuilder:object:root=true

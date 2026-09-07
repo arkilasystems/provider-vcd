@@ -10,7 +10,7 @@ import (
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/runtime/schema"
 
-	v1 "github.com/crossplane/crossplane/apis/v2/core/v2"
+	v2 "github.com/crossplane/crossplane/apis/v2/core/v2"
 )
 
 type NsxtNatRuleInitParameters struct {
@@ -284,8 +284,8 @@ type NsxtNatRuleParameters struct {
 
 // NsxtNatRuleSpec defines the desired state of NsxtNatRule
 type NsxtNatRuleSpec struct {
-	v1.ResourceSpec `json:",inline"`
-	ForProvider     NsxtNatRuleParameters `json:"forProvider"`
+	v2.ClusterManagedResourceSpec `json:",inline"`
+	ForProvider                   NsxtNatRuleParameters `json:"forProvider"`
 	// THIS IS A BETA FIELD. It will be honored
 	// unless the Management Policies feature flag is disabled.
 	// InitProvider holds the same fields as ForProvider, with the exception
@@ -301,8 +301,8 @@ type NsxtNatRuleSpec struct {
 
 // NsxtNatRuleStatus defines the observed state of NsxtNatRule.
 type NsxtNatRuleStatus struct {
-	v1.ResourceStatus `json:",inline"`
-	AtProvider        NsxtNatRuleObservation `json:"atProvider,omitempty"`
+	v2.ManagedResourceStatus `json:",inline"`
+	AtProvider               NsxtNatRuleObservation `json:"atProvider,omitempty"`
 }
 
 // +kubebuilder:object:root=true

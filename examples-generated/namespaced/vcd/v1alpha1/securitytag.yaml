@@ -1,0 +1,15 @@
+apiVersion: vcd.m.upbound.io/v1alpha1
+kind: SecurityTag
+metadata:
+  annotations:
+    meta.upbound.io/example-id: vcd/v1alpha1/securitytag
+  labels:
+    testing.upbound.io/example-name: my_tag
+  name: my-tag
+  namespace: crossplane-system
+spec:
+  forProvider:
+    name: test-tag
+    vmIds:
+    - ${vcd_vm.my-vm-one.id}
+    - ${vcd_vm.my-vm-two.id}

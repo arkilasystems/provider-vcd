@@ -10,7 +10,7 @@ import (
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/runtime/schema"
 
-	v1 "github.com/crossplane/crossplane/apis/v2/core/v2"
+	v2 "github.com/crossplane/crossplane/apis/v2/core/v2"
 )
 
 type CatalogInitParameters struct {
@@ -50,7 +50,7 @@ type CatalogInitParameters struct {
 
 	// An optional password to access the catalog. Only ASCII characters are allowed in a valid password.
 	// An optional password to access the catalog. Only ASCII characters are allowed in a valid password.
-	PasswordSecretRef *v1.SecretKeySelector `json:"passwordSecretRef,omitempty" tf:"-"`
+	PasswordSecretRef *v2.SecretKeySelector `json:"passwordSecretRef,omitempty" tf:"-"`
 
 	// Enable include BIOS UUIDs and MAC addresses in the downloaded OVF package. Preserving the identity information limits the portability of the package, and you should use it only when necessary. Default is false.
 	// Include BIOS UUIDs and MAC addresses in the downloaded OVF package. Preserving the identity information limits the portability of the package and you should use it only when necessary.
@@ -214,7 +214,7 @@ type CatalogParameters struct {
 	// An optional password to access the catalog. Only ASCII characters are allowed in a valid password.
 	// An optional password to access the catalog. Only ASCII characters are allowed in a valid password.
 	// +kubebuilder:validation:Optional
-	PasswordSecretRef *v1.SecretKeySelector `json:"passwordSecretRef,omitempty" tf:"-"`
+	PasswordSecretRef *v2.SecretKeySelector `json:"passwordSecretRef,omitempty" tf:"-"`
 
 	// Enable include BIOS UUIDs and MAC addresses in the downloaded OVF package. Preserving the identity information limits the portability of the package, and you should use it only when necessary. Default is false.
 	// Include BIOS UUIDs and MAC addresses in the downloaded OVF package. Preserving the identity information limits the portability of the package and you should use it only when necessary.
@@ -309,8 +309,8 @@ type MetadataEntryParameters struct {
 
 // CatalogSpec defines the desired state of Catalog
 type CatalogSpec struct {
-	v1.ResourceSpec `json:",inline"`
-	ForProvider     CatalogParameters `json:"forProvider"`
+	v2.ClusterManagedResourceSpec `json:",inline"`
+	ForProvider                   CatalogParameters `json:"forProvider"`
 	// THIS IS A BETA FIELD. It will be honored
 	// unless the Management Policies feature flag is disabled.
 	// InitProvider holds the same fields as ForProvider, with the exception
@@ -326,8 +326,8 @@ type CatalogSpec struct {
 
 // CatalogStatus defines the observed state of Catalog.
 type CatalogStatus struct {
-	v1.ResourceStatus `json:",inline"`
-	AtProvider        CatalogObservation `json:"atProvider,omitempty"`
+	v2.ManagedResourceStatus `json:",inline"`
+	AtProvider               CatalogObservation `json:"atProvider,omitempty"`
 }
 
 // +kubebuilder:object:root=true

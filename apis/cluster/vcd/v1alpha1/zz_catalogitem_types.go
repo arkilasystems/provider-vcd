@@ -10,7 +10,7 @@ import (
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/runtime/schema"
 
-	v1 "github.com/crossplane/crossplane/apis/v2/core/v2"
+	v2 "github.com/crossplane/crossplane/apis/v2/core/v2"
 )
 
 type CatalogItemInitParameters struct {
@@ -249,8 +249,8 @@ type CatalogItemParameters struct {
 
 // CatalogItemSpec defines the desired state of CatalogItem
 type CatalogItemSpec struct {
-	v1.ResourceSpec `json:",inline"`
-	ForProvider     CatalogItemParameters `json:"forProvider"`
+	v2.ClusterManagedResourceSpec `json:",inline"`
+	ForProvider                   CatalogItemParameters `json:"forProvider"`
 	// THIS IS A BETA FIELD. It will be honored
 	// unless the Management Policies feature flag is disabled.
 	// InitProvider holds the same fields as ForProvider, with the exception
@@ -266,8 +266,8 @@ type CatalogItemSpec struct {
 
 // CatalogItemStatus defines the observed state of CatalogItem.
 type CatalogItemStatus struct {
-	v1.ResourceStatus `json:",inline"`
-	AtProvider        CatalogItemObservation `json:"atProvider,omitempty"`
+	v2.ManagedResourceStatus `json:",inline"`
+	AtProvider               CatalogItemObservation `json:"atProvider,omitempty"`
 }
 
 // +kubebuilder:object:root=true

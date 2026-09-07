@@ -10,7 +10,7 @@ import (
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/runtime/schema"
 
-	v1 "github.com/crossplane/crossplane/apis/v2/core/v2"
+	v2 "github.com/crossplane/crossplane/apis/v2/core/v2"
 )
 
 type VAppFirewallRulesInitParameters struct {
@@ -331,8 +331,8 @@ type VAppFirewallRulesRuleParameters struct {
 
 // VAppFirewallRulesSpec defines the desired state of VAppFirewallRules
 type VAppFirewallRulesSpec struct {
-	v1.ResourceSpec `json:",inline"`
-	ForProvider     VAppFirewallRulesParameters `json:"forProvider"`
+	v2.ClusterManagedResourceSpec `json:",inline"`
+	ForProvider                   VAppFirewallRulesParameters `json:"forProvider"`
 	// THIS IS A BETA FIELD. It will be honored
 	// unless the Management Policies feature flag is disabled.
 	// InitProvider holds the same fields as ForProvider, with the exception
@@ -348,8 +348,8 @@ type VAppFirewallRulesSpec struct {
 
 // VAppFirewallRulesStatus defines the observed state of VAppFirewallRules.
 type VAppFirewallRulesStatus struct {
-	v1.ResourceStatus `json:",inline"`
-	AtProvider        VAppFirewallRulesObservation `json:"atProvider,omitempty"`
+	v2.ManagedResourceStatus `json:",inline"`
+	AtProvider               VAppFirewallRulesObservation `json:"atProvider,omitempty"`
 }
 
 // +kubebuilder:object:root=true

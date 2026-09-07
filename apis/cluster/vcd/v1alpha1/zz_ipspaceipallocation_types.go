@@ -10,7 +10,7 @@ import (
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/runtime/schema"
 
-	v1 "github.com/crossplane/crossplane/apis/v2/core/v2"
+	v2 "github.com/crossplane/crossplane/apis/v2/core/v2"
 )
 
 type IpSpaceIpAllocationInitParameters struct {
@@ -32,7 +32,7 @@ type IpSpaceIpAllocationInitParameters struct {
 	PrefixLength *string `json:"prefixLength,omitempty" tf:"prefix_length,omitempty"`
 
 	// One of FLOATING_IP, IP_PREFIX
-	// Type of allocation. One of `FLOATING_IP“, `IP_PREFIX`
+	// Type of allocation. One of `FLOATING_IP``, `IP_PREFIX`
 	Type *string `json:"type,omitempty" tf:"type,omitempty"`
 
 	// Only used with manual reservations. Value USED_MANUAL
@@ -80,7 +80,7 @@ type IpSpaceIpAllocationObservation struct {
 	PrefixLength *string `json:"prefixLength,omitempty" tf:"prefix_length,omitempty"`
 
 	// One of FLOATING_IP, IP_PREFIX
-	// Type of allocation. One of `FLOATING_IP“, `IP_PREFIX`
+	// Type of allocation. One of `FLOATING_IP``, `IP_PREFIX`
 	Type *string `json:"type,omitempty" tf:"type,omitempty"`
 
 	// Only used with manual reservations. Value USED_MANUAL
@@ -122,7 +122,7 @@ type IpSpaceIpAllocationParameters struct {
 	PrefixLength *string `json:"prefixLength,omitempty" tf:"prefix_length,omitempty"`
 
 	// One of FLOATING_IP, IP_PREFIX
-	// Type of allocation. One of `FLOATING_IP“, `IP_PREFIX`
+	// Type of allocation. One of `FLOATING_IP``, `IP_PREFIX`
 	// +kubebuilder:validation:Optional
 	Type *string `json:"type,omitempty" tf:"type,omitempty"`
 
@@ -142,8 +142,8 @@ type IpSpaceIpAllocationParameters struct {
 
 // IpSpaceIpAllocationSpec defines the desired state of IpSpaceIpAllocation
 type IpSpaceIpAllocationSpec struct {
-	v1.ResourceSpec `json:",inline"`
-	ForProvider     IpSpaceIpAllocationParameters `json:"forProvider"`
+	v2.ClusterManagedResourceSpec `json:",inline"`
+	ForProvider                   IpSpaceIpAllocationParameters `json:"forProvider"`
 	// THIS IS A BETA FIELD. It will be honored
 	// unless the Management Policies feature flag is disabled.
 	// InitProvider holds the same fields as ForProvider, with the exception
@@ -159,8 +159,8 @@ type IpSpaceIpAllocationSpec struct {
 
 // IpSpaceIpAllocationStatus defines the observed state of IpSpaceIpAllocation.
 type IpSpaceIpAllocationStatus struct {
-	v1.ResourceStatus `json:",inline"`
-	AtProvider        IpSpaceIpAllocationObservation `json:"atProvider,omitempty"`
+	v2.ManagedResourceStatus `json:",inline"`
+	AtProvider               IpSpaceIpAllocationObservation `json:"atProvider,omitempty"`
 }
 
 // +kubebuilder:object:root=true

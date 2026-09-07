@@ -10,7 +10,7 @@ import (
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/runtime/schema"
 
-	v1 "github.com/crossplane/crossplane/apis/v2/core/v2"
+	v2 "github.com/crossplane/crossplane/apis/v2/core/v2"
 )
 
 type CaptureVappInitParameters struct {
@@ -366,8 +366,8 @@ type LeaseParameters struct {
 
 // CatalogvAppTemplateSpec defines the desired state of CatalogvAppTemplate
 type CatalogvAppTemplateSpec struct {
-	v1.ResourceSpec `json:",inline"`
-	ForProvider     CatalogvAppTemplateParameters `json:"forProvider"`
+	v2.ClusterManagedResourceSpec `json:",inline"`
+	ForProvider                   CatalogvAppTemplateParameters `json:"forProvider"`
 	// THIS IS A BETA FIELD. It will be honored
 	// unless the Management Policies feature flag is disabled.
 	// InitProvider holds the same fields as ForProvider, with the exception
@@ -383,8 +383,8 @@ type CatalogvAppTemplateSpec struct {
 
 // CatalogvAppTemplateStatus defines the observed state of CatalogvAppTemplate.
 type CatalogvAppTemplateStatus struct {
-	v1.ResourceStatus `json:",inline"`
-	AtProvider        CatalogvAppTemplateObservation `json:"atProvider,omitempty"`
+	v2.ManagedResourceStatus `json:",inline"`
+	AtProvider               CatalogvAppTemplateObservation `json:"atProvider,omitempty"`
 }
 
 // +kubebuilder:object:root=true

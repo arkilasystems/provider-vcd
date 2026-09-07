@@ -10,7 +10,7 @@ import (
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/runtime/schema"
 
-	v1 "github.com/crossplane/crossplane/apis/v2/core/v2"
+	v2 "github.com/crossplane/crossplane/apis/v2/core/v2"
 )
 
 type HookInitParameters struct {
@@ -232,8 +232,8 @@ type RdeTypeParameters struct {
 
 // RdeTypeSpec defines the desired state of RdeType
 type RdeTypeSpec struct {
-	v1.ResourceSpec `json:",inline"`
-	ForProvider     RdeTypeParameters `json:"forProvider"`
+	v2.ClusterManagedResourceSpec `json:",inline"`
+	ForProvider                   RdeTypeParameters `json:"forProvider"`
 	// THIS IS A BETA FIELD. It will be honored
 	// unless the Management Policies feature flag is disabled.
 	// InitProvider holds the same fields as ForProvider, with the exception
@@ -249,8 +249,8 @@ type RdeTypeSpec struct {
 
 // RdeTypeStatus defines the observed state of RdeType.
 type RdeTypeStatus struct {
-	v1.ResourceStatus `json:",inline"`
-	AtProvider        RdeTypeObservation `json:"atProvider,omitempty"`
+	v2.ManagedResourceStatus `json:",inline"`
+	AtProvider               RdeTypeObservation `json:"atProvider,omitempty"`
 }
 
 // +kubebuilder:object:root=true

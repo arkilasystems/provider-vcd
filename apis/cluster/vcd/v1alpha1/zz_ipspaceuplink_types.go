@@ -10,7 +10,7 @@ import (
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/runtime/schema"
 
-	v1 "github.com/crossplane/crossplane/apis/v2/core/v2"
+	v2 "github.com/crossplane/crossplane/apis/v2/core/v2"
 )
 
 type IpSpaceUplinkInitParameters struct {
@@ -99,8 +99,8 @@ type IpSpaceUplinkParameters struct {
 
 // IpSpaceUplinkSpec defines the desired state of IpSpaceUplink
 type IpSpaceUplinkSpec struct {
-	v1.ResourceSpec `json:",inline"`
-	ForProvider     IpSpaceUplinkParameters `json:"forProvider"`
+	v2.ClusterManagedResourceSpec `json:",inline"`
+	ForProvider                   IpSpaceUplinkParameters `json:"forProvider"`
 	// THIS IS A BETA FIELD. It will be honored
 	// unless the Management Policies feature flag is disabled.
 	// InitProvider holds the same fields as ForProvider, with the exception
@@ -116,8 +116,8 @@ type IpSpaceUplinkSpec struct {
 
 // IpSpaceUplinkStatus defines the observed state of IpSpaceUplink.
 type IpSpaceUplinkStatus struct {
-	v1.ResourceStatus `json:",inline"`
-	AtProvider        IpSpaceUplinkObservation `json:"atProvider,omitempty"`
+	v2.ManagedResourceStatus `json:",inline"`
+	AtProvider               IpSpaceUplinkObservation `json:"atProvider,omitempty"`
 }
 
 // +kubebuilder:object:root=true

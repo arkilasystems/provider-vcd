@@ -10,7 +10,7 @@ import (
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/runtime/schema"
 
-	v1 "github.com/crossplane/crossplane/apis/v2/core/v2"
+	v2 "github.com/crossplane/crossplane/apis/v2/core/v2"
 )
 
 type RightsBundleInitParameters struct {
@@ -105,8 +105,8 @@ type RightsBundleParameters struct {
 
 // RightsBundleSpec defines the desired state of RightsBundle
 type RightsBundleSpec struct {
-	v1.ResourceSpec `json:",inline"`
-	ForProvider     RightsBundleParameters `json:"forProvider"`
+	v2.ClusterManagedResourceSpec `json:",inline"`
+	ForProvider                   RightsBundleParameters `json:"forProvider"`
 	// THIS IS A BETA FIELD. It will be honored
 	// unless the Management Policies feature flag is disabled.
 	// InitProvider holds the same fields as ForProvider, with the exception
@@ -122,8 +122,8 @@ type RightsBundleSpec struct {
 
 // RightsBundleStatus defines the observed state of RightsBundle.
 type RightsBundleStatus struct {
-	v1.ResourceStatus `json:",inline"`
-	AtProvider        RightsBundleObservation `json:"atProvider,omitempty"`
+	v2.ManagedResourceStatus `json:",inline"`
+	AtProvider               RightsBundleObservation `json:"atProvider,omitempty"`
 }
 
 // +kubebuilder:object:root=true

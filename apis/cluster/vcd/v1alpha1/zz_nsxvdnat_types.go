@@ -10,7 +10,7 @@ import (
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/runtime/schema"
 
-	v1 "github.com/crossplane/crossplane/apis/v2/core/v2"
+	v2 "github.com/crossplane/crossplane/apis/v2/core/v2"
 )
 
 type NsxvDnatInitParameters struct {
@@ -288,8 +288,8 @@ type NsxvDnatParameters struct {
 
 // NsxvDnatSpec defines the desired state of NsxvDnat
 type NsxvDnatSpec struct {
-	v1.ResourceSpec `json:",inline"`
-	ForProvider     NsxvDnatParameters `json:"forProvider"`
+	v2.ClusterManagedResourceSpec `json:",inline"`
+	ForProvider                   NsxvDnatParameters `json:"forProvider"`
 	// THIS IS A BETA FIELD. It will be honored
 	// unless the Management Policies feature flag is disabled.
 	// InitProvider holds the same fields as ForProvider, with the exception
@@ -305,8 +305,8 @@ type NsxvDnatSpec struct {
 
 // NsxvDnatStatus defines the observed state of NsxvDnat.
 type NsxvDnatStatus struct {
-	v1.ResourceStatus `json:",inline"`
-	AtProvider        NsxvDnatObservation `json:"atProvider,omitempty"`
+	v2.ManagedResourceStatus `json:",inline"`
+	AtProvider               NsxvDnatObservation `json:"atProvider,omitempty"`
 }
 
 // +kubebuilder:object:root=true

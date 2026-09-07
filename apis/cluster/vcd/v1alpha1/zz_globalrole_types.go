@@ -10,7 +10,7 @@ import (
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/runtime/schema"
 
-	v1 "github.com/crossplane/crossplane/apis/v2/core/v2"
+	v2 "github.com/crossplane/crossplane/apis/v2/core/v2"
 )
 
 type GlobalRoleInitParameters struct {
@@ -105,8 +105,8 @@ type GlobalRoleParameters struct {
 
 // GlobalRoleSpec defines the desired state of GlobalRole
 type GlobalRoleSpec struct {
-	v1.ResourceSpec `json:",inline"`
-	ForProvider     GlobalRoleParameters `json:"forProvider"`
+	v2.ClusterManagedResourceSpec `json:",inline"`
+	ForProvider                   GlobalRoleParameters `json:"forProvider"`
 	// THIS IS A BETA FIELD. It will be honored
 	// unless the Management Policies feature flag is disabled.
 	// InitProvider holds the same fields as ForProvider, with the exception
@@ -122,8 +122,8 @@ type GlobalRoleSpec struct {
 
 // GlobalRoleStatus defines the observed state of GlobalRole.
 type GlobalRoleStatus struct {
-	v1.ResourceStatus `json:",inline"`
-	AtProvider        GlobalRoleObservation `json:"atProvider,omitempty"`
+	v2.ManagedResourceStatus `json:",inline"`
+	AtProvider               GlobalRoleObservation `json:"atProvider,omitempty"`
 }
 
 // +kubebuilder:object:root=true

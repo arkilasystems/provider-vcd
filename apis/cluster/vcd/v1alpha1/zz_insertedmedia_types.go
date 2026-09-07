@@ -10,7 +10,7 @@ import (
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/runtime/schema"
 
-	v1 "github.com/crossplane/crossplane/apis/v2/core/v2"
+	v2 "github.com/crossplane/crossplane/apis/v2/core/v2"
 )
 
 type InsertedMediaInitParameters struct {
@@ -126,8 +126,8 @@ type InsertedMediaParameters struct {
 
 // InsertedMediaSpec defines the desired state of InsertedMedia
 type InsertedMediaSpec struct {
-	v1.ResourceSpec `json:",inline"`
-	ForProvider     InsertedMediaParameters `json:"forProvider"`
+	v2.ClusterManagedResourceSpec `json:",inline"`
+	ForProvider                   InsertedMediaParameters `json:"forProvider"`
 	// THIS IS A BETA FIELD. It will be honored
 	// unless the Management Policies feature flag is disabled.
 	// InitProvider holds the same fields as ForProvider, with the exception
@@ -143,8 +143,8 @@ type InsertedMediaSpec struct {
 
 // InsertedMediaStatus defines the observed state of InsertedMedia.
 type InsertedMediaStatus struct {
-	v1.ResourceStatus `json:",inline"`
-	AtProvider        InsertedMediaObservation `json:"atProvider,omitempty"`
+	v2.ManagedResourceStatus `json:",inline"`
+	AtProvider               InsertedMediaObservation `json:"atProvider,omitempty"`
 }
 
 // +kubebuilder:object:root=true

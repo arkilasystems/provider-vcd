@@ -10,7 +10,7 @@ import (
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/runtime/schema"
 
-	v1 "github.com/crossplane/crossplane/apis/v2/core/v2"
+	v2 "github.com/crossplane/crossplane/apis/v2/core/v2"
 )
 
 type ComputeCapacityCPUInitParameters struct {
@@ -354,8 +354,8 @@ type ProviderVdcParameters struct {
 
 // ProviderVdcSpec defines the desired state of ProviderVdc
 type ProviderVdcSpec struct {
-	v1.ResourceSpec `json:",inline"`
-	ForProvider     ProviderVdcParameters `json:"forProvider"`
+	v2.ClusterManagedResourceSpec `json:",inline"`
+	ForProvider                   ProviderVdcParameters `json:"forProvider"`
 	// THIS IS A BETA FIELD. It will be honored
 	// unless the Management Policies feature flag is disabled.
 	// InitProvider holds the same fields as ForProvider, with the exception
@@ -371,8 +371,8 @@ type ProviderVdcSpec struct {
 
 // ProviderVdcStatus defines the observed state of ProviderVdc.
 type ProviderVdcStatus struct {
-	v1.ResourceStatus `json:",inline"`
-	AtProvider        ProviderVdcObservation `json:"atProvider,omitempty"`
+	v2.ManagedResourceStatus `json:",inline"`
+	AtProvider               ProviderVdcObservation `json:"atProvider,omitempty"`
 }
 
 // +kubebuilder:object:root=true

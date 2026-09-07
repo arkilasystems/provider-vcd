@@ -10,7 +10,7 @@ import (
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/runtime/schema"
 
-	v1 "github.com/crossplane/crossplane/apis/v2/core/v2"
+	v2 "github.com/crossplane/crossplane/apis/v2/core/v2"
 )
 
 type HealthMonitorInitParameters struct {
@@ -481,8 +481,8 @@ type PersistenceProfileParameters struct {
 
 // NsxtAlbPoolSpec defines the desired state of NsxtAlbPool
 type NsxtAlbPoolSpec struct {
-	v1.ResourceSpec `json:",inline"`
-	ForProvider     NsxtAlbPoolParameters `json:"forProvider"`
+	v2.ClusterManagedResourceSpec `json:",inline"`
+	ForProvider                   NsxtAlbPoolParameters `json:"forProvider"`
 	// THIS IS A BETA FIELD. It will be honored
 	// unless the Management Policies feature flag is disabled.
 	// InitProvider holds the same fields as ForProvider, with the exception
@@ -498,8 +498,8 @@ type NsxtAlbPoolSpec struct {
 
 // NsxtAlbPoolStatus defines the observed state of NsxtAlbPool.
 type NsxtAlbPoolStatus struct {
-	v1.ResourceStatus `json:",inline"`
-	AtProvider        NsxtAlbPoolObservation `json:"atProvider,omitempty"`
+	v2.ManagedResourceStatus `json:",inline"`
+	AtProvider               NsxtAlbPoolObservation `json:"atProvider,omitempty"`
 }
 
 // +kubebuilder:object:root=true

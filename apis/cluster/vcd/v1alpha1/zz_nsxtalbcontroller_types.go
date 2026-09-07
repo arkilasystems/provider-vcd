@@ -10,7 +10,7 @@ import (
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/runtime/schema"
 
-	v1 "github.com/crossplane/crossplane/apis/v2/core/v2"
+	v2 "github.com/crossplane/crossplane/apis/v2/core/v2"
 )
 
 type NsxtAlbControllerInitParameters struct {
@@ -29,7 +29,7 @@ type NsxtAlbControllerInitParameters struct {
 
 	// The password for ALB Controller. Password will not be refreshed.
 	// NSX-T ALB Controller Password
-	PasswordSecretRef v1.SecretKeySelector `json:"passwordSecretRef" tf:"-"`
+	PasswordSecretRef v2.SecretKeySelector `json:"passwordSecretRef" tf:"-"`
 
 	// The URL of ALB Controller
 	// NSX-T ALB Controller URL
@@ -89,7 +89,7 @@ type NsxtAlbControllerParameters struct {
 	// The password for ALB Controller. Password will not be refreshed.
 	// NSX-T ALB Controller Password
 	// +kubebuilder:validation:Optional
-	PasswordSecretRef v1.SecretKeySelector `json:"passwordSecretRef" tf:"-"`
+	PasswordSecretRef v2.SecretKeySelector `json:"passwordSecretRef" tf:"-"`
 
 	// The URL of ALB Controller
 	// NSX-T ALB Controller URL
@@ -104,8 +104,8 @@ type NsxtAlbControllerParameters struct {
 
 // NsxtAlbControllerSpec defines the desired state of NsxtAlbController
 type NsxtAlbControllerSpec struct {
-	v1.ResourceSpec `json:",inline"`
-	ForProvider     NsxtAlbControllerParameters `json:"forProvider"`
+	v2.ClusterManagedResourceSpec `json:",inline"`
+	ForProvider                   NsxtAlbControllerParameters `json:"forProvider"`
 	// THIS IS A BETA FIELD. It will be honored
 	// unless the Management Policies feature flag is disabled.
 	// InitProvider holds the same fields as ForProvider, with the exception
@@ -121,8 +121,8 @@ type NsxtAlbControllerSpec struct {
 
 // NsxtAlbControllerStatus defines the observed state of NsxtAlbController.
 type NsxtAlbControllerStatus struct {
-	v1.ResourceStatus `json:",inline"`
-	AtProvider        NsxtAlbControllerObservation `json:"atProvider,omitempty"`
+	v2.ManagedResourceStatus `json:",inline"`
+	AtProvider               NsxtAlbControllerObservation `json:"atProvider,omitempty"`
 }
 
 // +kubebuilder:object:root=true

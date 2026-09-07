@@ -10,7 +10,7 @@ import (
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/runtime/schema"
 
-	v1 "github.com/crossplane/crossplane/apis/v2/core/v2"
+	v2 "github.com/crossplane/crossplane/apis/v2/core/v2"
 )
 
 type NsxtDistributedFirewallRuleInitParameters struct {
@@ -286,8 +286,8 @@ type NsxtDistributedFirewallRuleParameters struct {
 
 // NsxtDistributedFirewallRuleSpec defines the desired state of NsxtDistributedFirewallRule
 type NsxtDistributedFirewallRuleSpec struct {
-	v1.ResourceSpec `json:",inline"`
-	ForProvider     NsxtDistributedFirewallRuleParameters `json:"forProvider"`
+	v2.ClusterManagedResourceSpec `json:",inline"`
+	ForProvider                   NsxtDistributedFirewallRuleParameters `json:"forProvider"`
 	// THIS IS A BETA FIELD. It will be honored
 	// unless the Management Policies feature flag is disabled.
 	// InitProvider holds the same fields as ForProvider, with the exception
@@ -303,8 +303,8 @@ type NsxtDistributedFirewallRuleSpec struct {
 
 // NsxtDistributedFirewallRuleStatus defines the observed state of NsxtDistributedFirewallRule.
 type NsxtDistributedFirewallRuleStatus struct {
-	v1.ResourceStatus `json:",inline"`
-	AtProvider        NsxtDistributedFirewallRuleObservation `json:"atProvider,omitempty"`
+	v2.ManagedResourceStatus `json:",inline"`
+	AtProvider               NsxtDistributedFirewallRuleObservation `json:"atProvider,omitempty"`
 }
 
 // +kubebuilder:object:root=true

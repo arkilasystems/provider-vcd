@@ -10,7 +10,7 @@ import (
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/runtime/schema"
 
-	v1 "github.com/crossplane/crossplane/apis/v2/core/v2"
+	v2 "github.com/crossplane/crossplane/apis/v2/core/v2"
 )
 
 type BootOptionsInitParameters struct {
@@ -94,7 +94,7 @@ type CustomizationInitParameters struct {
 
 	// Manually specify Administrator password.
 	// Manually specify admin password
-	AdminPasswordSecretRef *v1.SecretKeySelector `json:"adminPasswordSecretRef,omitempty" tf:"-"`
+	AdminPasswordSecretRef *v2.SecretKeySelector `json:"adminPasswordSecretRef,omitempty" tf:"-"`
 
 	// Allow local administrator password.
 	// Allow local administrator password
@@ -138,7 +138,7 @@ type CustomizationInitParameters struct {
 
 	// Password to be used for domain join.
 	// Password for custom domain name join
-	JoinDomainPasswordSecretRef *v1.SecretKeySelector `json:"joinDomainPasswordSecretRef,omitempty" tf:"-"`
+	JoinDomainPasswordSecretRef *v2.SecretKeySelector `json:"joinDomainPasswordSecretRef,omitempty" tf:"-"`
 
 	// User to be used for domain join.
 	// Username for custom domain name join
@@ -221,7 +221,7 @@ type CustomizationParameters struct {
 	// Manually specify Administrator password.
 	// Manually specify admin password
 	// +kubebuilder:validation:Optional
-	AdminPasswordSecretRef *v1.SecretKeySelector `json:"adminPasswordSecretRef,omitempty" tf:"-"`
+	AdminPasswordSecretRef *v2.SecretKeySelector `json:"adminPasswordSecretRef,omitempty" tf:"-"`
 
 	// Allow local administrator password.
 	// Allow local administrator password
@@ -275,7 +275,7 @@ type CustomizationParameters struct {
 	// Password to be used for domain join.
 	// Password for custom domain name join
 	// +kubebuilder:validation:Optional
-	JoinDomainPasswordSecretRef *v1.SecretKeySelector `json:"joinDomainPasswordSecretRef,omitempty" tf:"-"`
+	JoinDomainPasswordSecretRef *v2.SecretKeySelector `json:"joinDomainPasswordSecretRef,omitempty" tf:"-"`
 
 	// User to be used for domain join.
 	// Username for custom domain name join
@@ -1503,8 +1503,8 @@ type VAppVmParameters struct {
 
 // VAppVmSpec defines the desired state of VAppVm
 type VAppVmSpec struct {
-	v1.ResourceSpec `json:",inline"`
-	ForProvider     VAppVmParameters `json:"forProvider"`
+	v2.ClusterManagedResourceSpec `json:",inline"`
+	ForProvider                   VAppVmParameters `json:"forProvider"`
 	// THIS IS A BETA FIELD. It will be honored
 	// unless the Management Policies feature flag is disabled.
 	// InitProvider holds the same fields as ForProvider, with the exception
@@ -1520,8 +1520,8 @@ type VAppVmSpec struct {
 
 // VAppVmStatus defines the observed state of VAppVm.
 type VAppVmStatus struct {
-	v1.ResourceStatus `json:",inline"`
-	AtProvider        VAppVmObservation `json:"atProvider,omitempty"`
+	v2.ManagedResourceStatus `json:",inline"`
+	AtProvider               VAppVmObservation `json:"atProvider,omitempty"`
 }
 
 // +kubebuilder:object:root=true

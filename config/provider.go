@@ -84,7 +84,16 @@ func GetProvider() *ujconfig.Provider {
 		ujconfig.WithFeaturesPackage("internal/features"),
 		ujconfig.WithDefaultResourceOptions(
 			ExternalNameConfigurations(),
-		))
+		),
+		// No v1alpha1 API package: that was only ever used for StoreConfig
+		// (External Secret Stores), which is removed in Crossplane v2. Drop
+		// it from upjet's default base package list rather than resurrect
+		// an empty package.
+		ujconfig.WithBasePackages(ujconfig.BasePackages{
+			APIVersion:    []string{"v1beta1"},
+			Controller:    ujconfig.DefaultBasePackages.Controller,
+			ControllerMap: ujconfig.DefaultBasePackages.ControllerMap,
+		}))
 
 	for _, configure := range []func(provider *ujconfig.Provider){
 		// add custom config functions
@@ -133,6 +142,12 @@ func GetProviderNamespaced() *ujconfig.Provider {
 		),
 		ujconfig.WithExampleManifestConfiguration(ujconfig.ExampleManifestConfiguration{
 			ManagedResourceNamespace: "crossplane-system",
+		}),
+		// See the matching comment in GetProvider: no v1alpha1 API package.
+		ujconfig.WithBasePackages(ujconfig.BasePackages{
+			APIVersion:    []string{"v1beta1"},
+			Controller:    ujconfig.DefaultBasePackages.Controller,
+			ControllerMap: ujconfig.DefaultBasePackages.ControllerMap,
 		}))
 
 	for _, configure := range []func(provider *ujconfig.Provider){

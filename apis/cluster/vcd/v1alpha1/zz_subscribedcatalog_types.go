@@ -10,7 +10,7 @@ import (
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/runtime/schema"
 
-	v1 "github.com/crossplane/crossplane/apis/v2/core/v2"
+	v2 "github.com/crossplane/crossplane/apis/v2/core/v2"
 )
 
 type SubscribedCatalogInitParameters struct {
@@ -52,7 +52,7 @@ type SubscribedCatalogInitParameters struct {
 	// The password is only required when set by the publishing catalog. Passing in six asterisks '******' indicates to keep current password.
 	// Passing in an empty string indicates to remove password.
 	// An optional password to access the catalog. Only ASCII characters are allowed in a valid password. Passing in six asterisks '******' indicates to keep current password. Passing in null or empty string indicates to remove password.
-	SubscriptionPasswordSecretRef *v1.SecretKeySelector `json:"subscriptionPasswordSecretRef,omitempty" tf:"-"`
+	SubscriptionPasswordSecretRef *v2.SecretKeySelector `json:"subscriptionPasswordSecretRef,omitempty" tf:"-"`
 
 	// The URL to subscribe to the external catalog.
 	// The URL to subscribe to the external catalog.
@@ -274,7 +274,7 @@ type SubscribedCatalogParameters struct {
 	// Passing in an empty string indicates to remove password.
 	// An optional password to access the catalog. Only ASCII characters are allowed in a valid password. Passing in six asterisks '******' indicates to keep current password. Passing in null or empty string indicates to remove password.
 	// +kubebuilder:validation:Optional
-	SubscriptionPasswordSecretRef *v1.SecretKeySelector `json:"subscriptionPasswordSecretRef,omitempty" tf:"-"`
+	SubscriptionPasswordSecretRef *v2.SecretKeySelector `json:"subscriptionPasswordSecretRef,omitempty" tf:"-"`
 
 	// The URL to subscribe to the external catalog.
 	// The URL to subscribe to the external catalog.
@@ -319,8 +319,8 @@ type SubscribedCatalogParameters struct {
 
 // SubscribedCatalogSpec defines the desired state of SubscribedCatalog
 type SubscribedCatalogSpec struct {
-	v1.ResourceSpec `json:",inline"`
-	ForProvider     SubscribedCatalogParameters `json:"forProvider"`
+	v2.ClusterManagedResourceSpec `json:",inline"`
+	ForProvider                   SubscribedCatalogParameters `json:"forProvider"`
 	// THIS IS A BETA FIELD. It will be honored
 	// unless the Management Policies feature flag is disabled.
 	// InitProvider holds the same fields as ForProvider, with the exception
@@ -336,8 +336,8 @@ type SubscribedCatalogSpec struct {
 
 // SubscribedCatalogStatus defines the observed state of SubscribedCatalog.
 type SubscribedCatalogStatus struct {
-	v1.ResourceStatus `json:",inline"`
-	AtProvider        SubscribedCatalogObservation `json:"atProvider,omitempty"`
+	v2.ManagedResourceStatus `json:",inline"`
+	AtProvider               SubscribedCatalogObservation `json:"atProvider,omitempty"`
 }
 
 // +kubebuilder:object:root=true

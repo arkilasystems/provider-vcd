@@ -10,7 +10,7 @@ import (
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/runtime/schema"
 
-	v1 "github.com/crossplane/crossplane/apis/v2/core/v2"
+	v2 "github.com/crossplane/crossplane/apis/v2/core/v2"
 )
 
 type EdgegatewayVPNInitParameters struct {
@@ -53,7 +53,7 @@ type EdgegatewayVPNInitParameters struct {
 	PeerSubnets []PeerSubnetsInitParameters `json:"peerSubnets,omitempty" tf:"peer_subnets,omitempty"`
 
 	// - Shared Secret
-	SharedSecretSecretRef v1.SecretKeySelector `json:"sharedSecretSecretRef" tf:"-"`
+	SharedSecretSecretRef v2.SecretKeySelector `json:"sharedSecretSecretRef" tf:"-"`
 
 	// The name of VDC to use, optional if defined at provider level
 	// The name of VDC to use, optional if defined at provider level
@@ -159,7 +159,7 @@ type EdgegatewayVPNParameters struct {
 
 	// - Shared Secret
 	// +kubebuilder:validation:Optional
-	SharedSecretSecretRef v1.SecretKeySelector `json:"sharedSecretSecretRef" tf:"-"`
+	SharedSecretSecretRef v2.SecretKeySelector `json:"sharedSecretSecretRef" tf:"-"`
 
 	// The name of VDC to use, optional if defined at provider level
 	// The name of VDC to use, optional if defined at provider level
@@ -247,8 +247,8 @@ type PeerSubnetsParameters struct {
 
 // EdgegatewayVPNSpec defines the desired state of EdgegatewayVPN
 type EdgegatewayVPNSpec struct {
-	v1.ResourceSpec `json:",inline"`
-	ForProvider     EdgegatewayVPNParameters `json:"forProvider"`
+	v2.ClusterManagedResourceSpec `json:",inline"`
+	ForProvider                   EdgegatewayVPNParameters `json:"forProvider"`
 	// THIS IS A BETA FIELD. It will be honored
 	// unless the Management Policies feature flag is disabled.
 	// InitProvider holds the same fields as ForProvider, with the exception
@@ -264,8 +264,8 @@ type EdgegatewayVPNSpec struct {
 
 // EdgegatewayVPNStatus defines the observed state of EdgegatewayVPN.
 type EdgegatewayVPNStatus struct {
-	v1.ResourceStatus `json:",inline"`
-	AtProvider        EdgegatewayVPNObservation `json:"atProvider,omitempty"`
+	v2.ManagedResourceStatus `json:",inline"`
+	AtProvider               EdgegatewayVPNObservation `json:"atProvider,omitempty"`
 }
 
 // +kubebuilder:object:root=true

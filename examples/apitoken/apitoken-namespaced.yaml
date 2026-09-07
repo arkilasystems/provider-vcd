@@ -1,0 +1,14 @@
+apiVersion: vcd.m.upbound.io/v1alpha1
+kind: ApiToken
+metadata:
+  annotations:
+    meta.upbound.io/example-id: vcd/v1alpha1/apitoken
+  labels:
+    testing.upbound.io/example-name: example_token
+  name: example-token
+  namespace: crossplane-system
+spec:
+  forProvider:
+    allowTokenFile: true
+    fileName: example_token.json
+    name: example_token

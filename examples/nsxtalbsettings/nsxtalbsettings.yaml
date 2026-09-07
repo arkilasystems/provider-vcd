@@ -1,0 +1,13 @@
+apiVersion: vcd.upbound.io/v1alpha1
+kind: NsxtAlbSettings
+metadata:
+  annotations:
+    meta.upbound.io/example-id: vcd/v1alpha1/nsxtalbsettings
+  labels:
+    testing.upbound.io/example-name: org1
+  name: org1
+spec:
+  forProvider:
+    edgeGatewayId: ${data.vcd_nsxt_edgegateway.existing.id}
+    isActive: true
+    org: my-org

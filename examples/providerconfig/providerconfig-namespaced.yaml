@@ -1,0 +1,18 @@
+# A namespaced ProviderConfig is only usable by namespaced managed resources
+# in the same namespace, and can only reference a Secret in that same
+# namespace (the namespace on secretRef is ignored/overwritten to match at
+# reconcile time). Namespaced managed resources default to referencing a
+# ClusterProviderConfig (see clusterproviderconfig.yaml) unless their
+# providerConfigRef explicitly sets kind: ProviderConfig, as shown below.
+apiVersion: vcd.m.upbound.io/v1beta1
+kind: ProviderConfig
+metadata:
+  name: default
+  namespace: team-a
+spec:
+  credentials:
+    source: Secret
+    secretRef:
+      name: example-creds
+      namespace: team-a
+      key: credentials

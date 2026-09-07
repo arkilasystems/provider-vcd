@@ -1,0 +1,38 @@
+apiVersion: vcd.upbound.io/v1alpha1
+kind: IpSpace
+metadata:
+  annotations:
+    meta.upbound.io/example-id: vcd/v1alpha1/ipspace
+  labels:
+    testing.upbound.io/example-name: space1
+  name: space1
+spec:
+  forProvider:
+    description: description of IP Space
+    internalScope:
+    - 192.168.1.0/24
+    - 10.10.10.0/24
+    - 11.11.11.0/24
+    ipPrefix:
+    - defaultQuota: -1
+      prefix:
+      - firstIp: 192.168.1.100
+        prefixCount: 4
+        prefixLength: 30
+      - firstIp: 192.168.1.200
+        prefixCount: 4
+        prefixLength: 30
+    - defaultQuota: -1
+      prefix:
+      - firstIp: 10.10.10.96
+        prefixCount: 4
+        prefixLength: 29
+    ipRange:
+    - endAddress: 11.11.11.110
+      startAddress: 11.11.11.100
+    - endAddress: 11.11.11.123
+      startAddress: 11.11.11.120
+    name: org-owned-ip-space
+    orgId: ${data.vcd_org.org1.id}
+    routeAdvertisementEnabled: false
+    type: PRIVATE

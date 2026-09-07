@@ -32,7 +32,7 @@ type IpSpaceIpAllocationInitParameters struct {
 	PrefixLength *string `json:"prefixLength,omitempty" tf:"prefix_length,omitempty"`
 
 	// One of FLOATING_IP, IP_PREFIX
-	// Type of allocation. One of `FLOATING_IP``, `IP_PREFIX`
+	// Type of allocation. One of `FLOATING_IP`, `IP_PREFIX`
 	Type *string `json:"type,omitempty" tf:"type,omitempty"`
 
 	// Only used with manual reservations. Value USED_MANUAL
@@ -80,7 +80,7 @@ type IpSpaceIpAllocationObservation struct {
 	PrefixLength *string `json:"prefixLength,omitempty" tf:"prefix_length,omitempty"`
 
 	// One of FLOATING_IP, IP_PREFIX
-	// Type of allocation. One of `FLOATING_IP``, `IP_PREFIX`
+	// Type of allocation. One of `FLOATING_IP`, `IP_PREFIX`
 	Type *string `json:"type,omitempty" tf:"type,omitempty"`
 
 	// Only used with manual reservations. Value USED_MANUAL
@@ -122,7 +122,7 @@ type IpSpaceIpAllocationParameters struct {
 	PrefixLength *string `json:"prefixLength,omitempty" tf:"prefix_length,omitempty"`
 
 	// One of FLOATING_IP, IP_PREFIX
-	// Type of allocation. One of `FLOATING_IP``, `IP_PREFIX`
+	// Type of allocation. One of `FLOATING_IP`, `IP_PREFIX`
 	// +kubebuilder:validation:Optional
 	Type *string `json:"type,omitempty" tf:"type,omitempty"`
 
